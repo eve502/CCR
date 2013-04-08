@@ -1,0 +1,50 @@
+@@ -1,48 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<resources>
+-	<string name="welcome_message">Welcome to CloudClassroom</string>
+-	<string name="welcome_login">CloudClassroom User Login</string>
+-	
+-	<string name="username">Username</string>
+-	<string name="password">Password</string>
+-	<string name="enter_username">enter your username</string> 
+-	<string name="enter_password">enter your password</string>
+-	<string name="login">login</string>
+-	<string name="Register">Register</string>
+-	
+-	<string name="comfirm_password">comfirm password</string>
+-	<string name="enter_comfirm_password">enter your comfirm password</string>
+-	
+-	<string name="btn_close">close</string>
+-	
+-	<string name="course">course</string>
+-	<string name="setting">setting</string>
+-
+-
+-	
+-	
+-	<string name="tab_course">course</string>
+-	<string name="tab_mentor">mentor</string>
+-	<string name="tab_favor">favor</string>
+-	<string name="tab_vedio">vedio</string>
+-	<string name="tab_sms">sms</string>
+-	<string name="tab_profile">profile</string>
+-	<string name="course_list">course</string>
+-	<string name="mentor_list">mentor</string>
+-	<string name="vedio_list">education vedio</string>
+-	<string name="favor_list">favor</string>
+-	<string name="sms_list">sms</string>
+-	<string name="profile_info">profile</string>
+-	<string name="mentor_tips">click mentor goto her/him information</string>
+-	<string name="course_info">Course Information</string>
+-	<string name="course_desc">Course Description</string>
+-	<string name="btn_addfavor">Collect</string>
+-	<string name="btn_vedio">vedio</string>
+-	<string name="user_location">Location</string>
+-	<string name="user_account">Account</string>
+-	<string name="user_favorite">Favorite</string>
+-	<string name="user_sms">Messages</string>
+-	<string name="mentor_introduce">Mentor's Introduce</string>
+-	<string name="btn_question">question</string>
+-	<string name="btn_mentorinfo">Mentor's Introduce</string>
+-</resources>
+\ No newline at end of file

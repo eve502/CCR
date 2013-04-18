@@ -1,0 +1,1 @@
+/Users/eve/Workspace/Apple/CCR/Resources/Views/main_window/main.js

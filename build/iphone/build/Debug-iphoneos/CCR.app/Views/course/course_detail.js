@@ -1,0 +1,1 @@
+/Users/eve/Workspace/Apple/CCR/Resources/Views/course/course_detail.js

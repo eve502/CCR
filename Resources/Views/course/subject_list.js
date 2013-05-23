@@ -21,7 +21,7 @@ var Win = Titanium.UI.currentWindow;
 // 
 var _setting_data = [
 	{title:"数学", hasChild:true, url:'/Views/course/course_list.js', leftImage:'/images/icon/ico_setting_account.png'},
-	{title:"语文", hasChild:true, url:'/Views/account/_signUp.js', leftImage:'/images/icon/ico_setting_feedback.png', header:''},
+	{title:"语文", hasChild:true, url:'/Views/course/course_list.js', leftImage:'/images/icon/ico_setting_feedback.png', header:''},
 	//{title:L('help'), hasChild:true, url:'/setting/_help.js', leftImage:'/images/ico_setting_help.png'},
 ]
 

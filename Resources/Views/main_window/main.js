@@ -34,6 +34,9 @@ if(currentUserType == 0){
 }
 
 
+/*
+ * tab group
+ */
 if(typeof(tab_course)!='undefined'){
 	mainTabGroup.addTab(tab_course)
 }
@@ -41,7 +44,6 @@ if(typeof(tab_course)!='undefined'){
 if(typeof(tab_setting)!='undefined'){
 	mainTabGroup.addTab(tab_setting)
 }
-
 
 
 

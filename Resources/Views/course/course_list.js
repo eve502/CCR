@@ -29,10 +29,13 @@ var menu_list_tb = Ti.UI.createTableView({
 });
 
 
+
+//表格事件
 menu_list_tb.addEventListener('click', function(e){
 	//Ti.API.info(e.rowData.hasChild);
 	if (e.rowData.hasChild)
-	{	
+	{
+		//viewMode = 1;	
 		//Ti.API.info(e.rowData.title);
 		var w = Titanium.UI.createWindow({
 			url:"/Views/course/course_detail.js",
@@ -41,7 +44,7 @@ menu_list_tb.addEventListener('click', function(e){
 		});
 		
 		var label = Titanium.UI.createButton({
-			title:'第一章 加减法',
+			title:e.rowData.title,
 			color:'#fff',
 			style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN
 		});
@@ -61,15 +64,17 @@ menu_list_tb.addEventListener('click', function(e){
 		});		
 		
 		// create and add toolbar
-		var toolbar = Titanium.UI.createToolbar({
+		var toolbar = Titanium.UI.iOS.createToolbar({
 			items:[close,flexSpace,label,flexSpace],
 			top:0,
 			borderTop:false,
 			borderBottom:true
 		});
-		w.add(toolbar);
+		w.add(toolbar);	
+		
+		w.open({animated:true});
 	
-		w.open();
+		//Ti.UI.currentTab.open(w,{animated:true});
 	}
 });
 

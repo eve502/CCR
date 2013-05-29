@@ -475,11 +475,12 @@ function inArray(needle, haystack) {
         if(typeof haystack[i] == 'object') {
             if(arrayCompare(haystack[i], needle)) return true;
         } else {
-            if(haystack[i] == needle) return true;
+            if(haystack[i] == needle) return i;
         }
     }
-    return false;
+    return -1;
 }
+
 
 function GetRandomNum(Min,Max){
 	var Range = Max - Min;

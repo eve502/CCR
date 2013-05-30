@@ -1,0 +1,1 @@
+/Users/eve/Workspace/Apple/CCR/Resources/Views/userinfo/_usr_list.js

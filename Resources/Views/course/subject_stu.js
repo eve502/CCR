@@ -43,8 +43,8 @@ course_sp.splitView_win = Titanium.UI.iPad.createSplitWindow({
 
 
 Ti.App.addEventListener.addEventListener('app:rowClicked', function(e) {
-    course_sp.splitView_win.setMasterPopupVisible(false);
-	course_sp.splitView_win.setMasterPopupVisible(true);
+    course_sp.splitView_win.setMasterPopupVisible(true);
+	course_sp.splitView_win.setMasterPopupVisible(false);
 });
 
 course_sp.splitView_win.addEventListener('visible', function(e) {

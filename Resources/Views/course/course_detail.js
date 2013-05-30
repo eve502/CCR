@@ -53,18 +53,70 @@ var labelTitle = Ti.UI.createLabel({
 	id:'course_title',
 	text:'第一章 加减法',
 	top:550,
+	width:720,
 	height:40,
-	font:{fontSize:28},
-	textAlign:'left'
+	font:{fontSize:24},
+});
+viewVideo.add(labelTitle);
+
+
+var qusIcon = Titanium.UI.createImageView({
+	image:'/images/icon/ico_setting_account.png',
+	width:74,
+	height:64,
+	top:535,
+	right:20,
+	zindex:6
 });
 
+viewVideo.add(qusIcon);
+
+//班级成员列表弹窗
+qusIcon.addEventListener('click',function(){
+	//班级成员列表Window
+	var t = Titanium.UI.create2DMatrix();
+		t = t.scale(0);
+	var _usrlist_win = Titanium.UI.createWindow({
+		url:"/Views/userinfo/_usr_list.js",
+		backgroundColor:'#FFF',
+		borderWidth:1,
+		borderColor:'#999',
+		height:400,
+		width:300,
+		borderRadius:10,
+		transform:t
+	});
+	// create first transform to go beyond normal size
+	var t1 = Titanium.UI.create2DMatrix();
+	t1 = t1.scale(1.1);
+	var a = Titanium.UI.createAnimation();
+	a.transform = t1;
+	a.duration = 200;
+
+	// when this animation completes, scale to normal size
+	a.addEventListener('complete', function()
+	{
+		Titanium.API.info('here in complete');
+		var t2 = Titanium.UI.create2DMatrix();
+		t2 = t2.scale(1.0);
+		_usrlist_win.animate({transform:t2, duration:200});
+
+	});
+	
+	_usrlist_win.open(a);
+	
+});
+
+
+//课程内容介绍
 var labelCont = Ti.UI.createLabel({
 	id:'course_cont',
 	text:'人教版小学数学一年级上册学习视频 新课标《特级教师辅导》根据教育部最新制定的新课程标准和人民教育出版社教科书内容同步制作的学生家庭学习音像教材。',
 	top:570,
 	height:150,
+	width:720,
 });
-viewVideo.add(labelTitle);
+
 viewVideo.add(labelCont);
 
 

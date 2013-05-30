@@ -17,7 +17,14 @@ var _course_data = [
 	{title:"第三章 平方", hasChild:true},
 ]
 
+//搜索框
+var search = Titanium.UI.createSearchBar({
+	showCancel:false,
+	barColor:'#DFE2E7',
+});
 
+
+//TableView课程列表
 var menu_list_tb = Ti.UI.createTableView({
 	data:_course_data,
 	minRowHeight:64,
@@ -26,6 +33,7 @@ var menu_list_tb = Ti.UI.createTableView({
 	rowBackgroundColor:'white',
 	separatorColor:'#cfcfcf',
 	allowsSelection:true,
+	search:search,
 });
 
 

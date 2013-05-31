@@ -12,13 +12,10 @@ var win = Ti.UI.currentWindow;
 var windowClosed = false;
 
 
+
 /*----------------------------------------------------------
- * current win content
+ * 课堂内容
  */
-
-
-
-//video view
 var viewVideo = Ti.UI.createView({
 	width:720,
 	height:850,
@@ -71,44 +68,47 @@ var qusIcon = Titanium.UI.createImageView({
 
 viewVideo.add(qusIcon);
 
+//班级成员列表
+var data = [
+	{title:'张子涵', header:'老师'},
+	{title:'王萧'},
+	{title:'李四'},
+	{title:'王晓晓', header:'同学'},
+	{title:'赵敏'},
+	{title:'刘谦'},
+	{title:'刘伟'},
+	{title:'明明'},
+	{title:'艾晓静'}
+	];
+	
+var usr_list = Ti.UI.createTableView({
+	data:data
+});
+
+//班级成员列表弹窗
+var rightButton = Ti.UI.createButton({title: L('btn_close')});
+rightButton.addEventListener('click', function(e){
+    popover.hide();
+});
+
+var popover = Ti.UI.iPad.createPopover({
+    width: 300,
+    height: 400,
+    title: '班级成员',
+    rightNavButton: rightButton
+});
+popover.add(usr_list);
+
+
 //班级成员列表弹窗
 qusIcon.addEventListener('click',function(){
 	//班级成员列表Window
-	var t = Titanium.UI.create2DMatrix();
-		t = t.scale(0);
-	var _usrlist_win = Titanium.UI.createWindow({
-		url:"/Views/userinfo/_usr_list.js",
-		backgroundColor:'#FFF',
-		borderWidth:1,
-		borderColor:'#999',
-		height:400,
-		width:300,
-		borderRadius:10,
-		transform:t
-	});
-	// create first transform to go beyond normal size
-	var t1 = Titanium.UI.create2DMatrix();
-	t1 = t1.scale(1.1);
-	var a = Titanium.UI.createAnimation();
-	a.transform = t1;
-	a.duration = 200;
-
-	// when this animation completes, scale to normal size
-	a.addEventListener('complete', function()
-	{
-		Titanium.API.info('here in complete');
-		var t2 = Titanium.UI.create2DMatrix();
-		t2 = t2.scale(1.0);
-		_usrlist_win.animate({transform:t2, duration:200});
-
-	});
-	
-	_usrlist_win.open(a);
+	popover.show({ view: qusIcon });
 	
 });
 
 
-//课程内容介绍
+//课程内容简介
 var labelCont = Ti.UI.createLabel({
 	id:'course_cont',
 	text:'人教版小学数学一年级上册学习视频 新课标《特级教师辅导》根据教育部最新制定的新课程标准和人民教育出版社教科书内容同步制作的学生家庭学习音像教材。',
@@ -143,7 +143,43 @@ activeMovie.addEventListener('complete',function()
 
 activeMovie.play();
 
-//exer view
+/*----------------------------------------------------------
+ * 课堂练习
+ */
+
+var cur_page = 1; //当前题目
+var cur_level = 0; //当前测试级别
+var cur_score = 0; //题目测试得分
+
+var data_level = ['初级篇','中级篇','高级篇'];
+
+var data_exam = [
+	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+		{cont:'1元6角',result:true},
+		{cont:'2元'},
+		{cont:'2元4角'},
+		{cont:'1元2角'}
+	]},
+	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+		{cont:'1元6角',result:true},
+		{cont:'2元'},
+		{cont:'2元4角'},
+		{cont:'1元2角'}
+	]},
+	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+		{cont:'1元6角',result:true},
+		{cont:'2元'},
+		{cont:'2元4角'},
+		{cont:'1元2角'}
+	]},
+	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+		{cont:'1元6角',result:true},
+		{cont:'2元'},
+		{cont:'2元4角'},
+		{cont:'1元2角'}
+	]}
+];
+
 var viewExer = Ti.UI.createView({
 	width:720,
 	height:850,
@@ -151,18 +187,122 @@ var viewExer = Ti.UI.createView({
 	visible:false
 });
 
-var label_exer = Ti.UI.createLabel({
-	text:'课堂练习',
-	top:10,
-	height:50,
-	textAlign:'center'
+var viewCurEaxm = Ti.UI.createView({
+	width:720,
+	height:710,
+	top:0
 });
 
-viewExer.add(label_exer);
+//页面内容初始化
+createViewCurExam();
+
+//跳过按钮
+var pass_btn = Ti.UI.createButton({
+	title:L('pass'),
+	top:730,
+	width:300,
+	height:80,
+	borderRadius:20,
+	borderColor:'#DFE2E7',
+	borderWidth:2
+});
+
+pass_btn.addEventListener('click',function(){
+	if(cur_page < (data_exam.length - 1)){
+		cur_page++;	
+		clearViewCurExam();	
+		createViewCurExam();
+	}else{
+		//pass_btn.hide();
+	}	
+});
+
+viewExer.add(pass_btn);
+
 win.add(viewExer);
 
+function clearViewCurExam()
+{
+	viewExer.remove(viewCurEaxm);
+}
 
-// knowloage share view
+//页面内容创建
+function createViewCurExam()
+{
+	viewExer.add(viewCurEaxm);
+	
+	var label_exer = Ti.UI.createLabel({
+		text:'    课堂练习 - ' + data_level[cur_level],
+		top:0,
+		width:720,
+		height:80,
+		font:{fontSize:24},
+		color:'#FFF',
+		textAlign:'left',
+		backgroundColor:'#369',
+		borderRadius:20,
+		borderWidth:10,
+		borderColor:'#DFE2E7'
+	});
+	
+	viewCurEaxm.add(label_exer);
+	
+	var label_page = Ti.UI.createLabel({
+		text:cur_page + '/' + data_exam.length,
+		top:0,
+		right:20,
+		width:700,
+		height:80,
+		color:'#FFF',
+		font:{fontSize:32},
+		textAlign:'right'
+	});
+	
+	viewCurEaxm.add(label_page);
+	
+	//当前页面问题描述
+	var exerWrap = Ti.UI.createView({
+		borderRadius:20,
+		borderWidth:10,
+		borderColor:'#DFE2E7',
+		width:720,
+		height:200,
+		top:100,
+		font:{fontSize:28},
+	});
+	
+	viewCurEaxm.add(exerWrap);
+	
+	var label_question = Ti.UI.createLabel({
+		text:data_exam[cur_page].question,
+	});
+	
+	exerWrap.add(label_question);
+	
+	//当前页面题目选项按钮
+	var cur_answers = data_exam[cur_page].answers; 
+	var cur_answers_len = cur_answers.length; 
+	
+	for(i=0;i<cur_answers_len;i++)
+	{
+		//Ti.API.info('i=' + i);
+		var answer_btn = Ti.UI.createButton({
+			title:cur_answers[i].cont,
+			top:320 + i*100,
+			width:500,
+			height:90,
+			borderRadius:20,
+			borderColor:'#DFE2E7',
+			borderWidth:2
+		}); 
+		viewCurEaxm.add(answer_btn);
+	}
+}
+
+
+/*----------------------------------------------------------
+ * 知识共享
+ */
 var viewShare = Ti.UI.createView({
 	width:720,
 	height:850,
@@ -180,7 +320,11 @@ var label_share = Ti.UI.createLabel({
 viewShare.add(label_share);
 win.add(viewShare);
 
-// help view
+
+
+/*----------------------------------------------------------
+ * 学习帮助
+ */
 var viewHelp = Ti.UI.createView({
 	width:720,
 	height:850,
@@ -199,8 +343,9 @@ viewHelp.add(label_help);
 win.add(viewHelp);
 
 
+///////////////////////////////////////
 
-//窗口关闭事件
+//当前窗口关闭事件
 win.addEventListener('close', function() 
 {
 	if (!windowClosed)

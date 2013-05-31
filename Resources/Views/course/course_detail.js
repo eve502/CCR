@@ -299,6 +299,8 @@ function clearViewCurExam()
 	viewExer.remove(viewCurEaxm);
 }
 
+var which_btn = 0;
+
 //页面内容创建
 function createViewCurExam()
 {
@@ -356,12 +358,12 @@ function createViewCurExam()
 	var cur_answers = data_exam[cur_page-1].answers; 
 	var cur_answers_len = cur_answers.length; 
 	
-	var answer_btn = [];
+	var btn_list = [];
 	
 	for(i=0;i<cur_answers_len;i++)
 	{
 		//Ti.API.info('i=' + i);
-		var answer_btn[i] = Ti.UI.createButton({
+		var answer_btn = Ti.UI.createButton({
 			title:cur_answers[i].cont,
 			top:320 + i*100,
 			width:500,
@@ -370,13 +372,15 @@ function createViewCurExam()
 			borderColor:'#DFE2E7',
 			borderWidth:2
 		});	
-		viewCurEaxm.add(answer_btn[i]);
+		viewCurEaxm.add(answer_btn);
+		
+		btn_list.push(answer_btn);
 		
 		//Ti.API.info('result = ' + cur_answers[i].result);
-		var isRight = cur_answers[i].result;	
-		
-		answer_btn[i].addEventListener('click',function(e){
-			Ti.App.info(cur_answers[i].result);
+		//var isRight = cur_answers[i].result;
+		/*
+		answer_btn.addEventListener('click',function(e){
+			Ti.API.info(data_exam[cur_page-1].answers[whichBtn].result);
 			if(isRight){
 				var cur_score = data_exam[cur_page-1].score;
 				total_score += cur_score;
@@ -394,6 +398,39 @@ function createViewCurExam()
 				createViewResult();
 			}
 		});
+		*/
+	}
+	
+	var btn_len = btn_list.length;
+	
+	for(j=0;j<btn_len;j++)
+	{
+		btn_list[j].addEventListener('click',function(e){
+			var isRight = data_exam[cur_page-1].answers[which_btn].result;
+			Ti.API.info(isRight);
+			if(isRight){
+				var cur_score = data_exam[cur_page-1].score;
+				total_score += cur_score;
+			}
+			
+			if(cur_page < data_exam.length){
+				//进入下一个测试题目
+				cur_page++;	
+				clearViewCurExam();	
+				createViewCurExam();
+			}else{
+				//进入测试结果页面
+				pass_btn.hide();
+				clearViewCurExam();
+				createViewResult();
+			}
+		});
+		
+		if(which_btn == (btn_len - 1)){
+			which_btn = 0;
+		}else{
+			which_btn++;
+		}		
 	}
 }
 

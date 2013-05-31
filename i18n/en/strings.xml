@@ -14,12 +14,16 @@
 	<string name="enter_comfirm_password">enter your comfirm password</string>
 	
 	<string name="btn_close">close</string>
+	<string name="pass">pass</string>
 	
 	<string name="course">course</string>
 	<string name="subject">subject</string>
 	<string name="setting">setting</string>
 
-
+	<string name="course_det">course</string>
+	<string name="course_exer">examination</string>
+	<string name="knowledge_share">share</string>
+	<string name="course_help">help</string>
 	
 	
 	<string name="tab_course">course</string>

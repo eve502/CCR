@@ -15,6 +15,7 @@
 	<string name="enter_comfirm_password">请输入确认密码</string>
 	
 	<string name="btn_close">关闭</string>
+	<string name="pass">跳过</string>
 	
 	<string name="course">课程</string>
 	<string name="subject">科目</string>

@@ -16,6 +16,8 @@
 	
 	<string name="btn_close">关闭</string>
 	<string name="pass">跳过</string>
+	<string name="next_exam">下一轮测试</string>
+	<string name="view_result">view test result</string>
 	
 	<string name="course">课程</string>
 	<string name="subject">科目</string>

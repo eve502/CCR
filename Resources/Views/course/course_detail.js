@@ -149,34 +149,34 @@ activeMovie.play();
 
 var cur_page = 1; //当前题目
 var cur_level = 0; //当前测试级别
-var cur_score = 0; //题目测试得分
+var total_score = 0; //题目测试得分
 
 var data_level = ['初级篇','中级篇','高级篇'];
 
 var data_exam = [
-	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{score:25,question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
-		{cont:'2元'},
-		{cont:'2元4角'},
-		{cont:'1元2角'}
+		{cont:'2元',result:false},
+		{cont:'2元4角',result:false},
+		{cont:'1元2角',result:false}
 	]},
-	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{score:25,question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
-		{cont:'2元'},
-		{cont:'2元4角'},
-		{cont:'1元2角'}
+		{cont:'2元',result:false},
+		{cont:'2元4角',result:false},
+		{cont:'1元2角',result:false}
 	]},
-	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{score:25,question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
-		{cont:'2元'},
-		{cont:'2元4角'},
-		{cont:'1元2角'}
+		{cont:'2元',result:false},
+		{cont:'2元4角',result:false},
+		{cont:'1元2角',result:false}
 	]},
-	{score:'25',question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{score:25,question:'买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
-		{cont:'2元'},
-		{cont:'2元4角'},
-		{cont:'1元2角'}
+		{cont:'2元',result:false},
+		{cont:'2元4角',result:false},
+		{cont:'1元2角',result:false}
 	]}
 ];
 
@@ -187,7 +187,15 @@ var viewExer = Ti.UI.createView({
 	visible:false
 });
 
+//题目内容显示区域
 var viewCurEaxm = Ti.UI.createView({
+	width:720,
+	height:710,
+	top:0
+});
+
+//测试完成显示区域
+var viewResult = Ti.UI.createView({
 	width:720,
 	height:710,
 	top:0
@@ -208,18 +216,83 @@ var pass_btn = Ti.UI.createButton({
 });
 
 pass_btn.addEventListener('click',function(){
-	if(cur_page < (data_exam.length - 1)){
+	if(cur_page < data_exam.length){
+		//进入下一个测试题目
 		cur_page++;	
 		clearViewCurExam();	
 		createViewCurExam();
 	}else{
-		//pass_btn.hide();
-	}	
+		//进入测试结果页面
+		pass_btn.hide();
+		clearViewCurExam();
+		createViewResult();
+	}
 });
 
 viewExer.add(pass_btn);
 
 win.add(viewExer);
+
+function removeViewResult()
+{
+	viewExer.remove(viewResult);
+}
+
+function createViewResult()
+{
+	viewExer.add(viewResult);
+	
+	var resultWrap = Ti.UI.createView({
+		borderRadius:20,
+		borderWidth:10,
+		borderColor:'#DFE2E7',
+		width:720,
+		height:200,
+		top:100,
+		font:{fontSize:28},
+	});
+	
+	viewResult.add(resultWrap);
+	
+	if(total_score >= 80){
+		var exam_result = total_score + '分，恭喜您！可以进入下一轮测试啦！ 可点击“下一轮测试”开始。';
+	}else{
+		var exam_result = total_score + '分，继续努力，达到80分就可以进入下一轮测试喽！';
+	}
+	
+	var label_result = Ti.UI.createLabel({
+		text:exam_result,
+		fontSize:32,
+	});
+	
+	resultWrap.add(label_result);
+	
+	//查看测试结果按钮
+	var viewResultBtn = Ti.UI.createButton({
+		title:L('view_result'),
+		top:630,
+		width:300,
+		height:80,
+		borderRadius:20,
+		borderColor:'#DFE2E7',
+		borderWidth:2
+	});
+	
+	viewResult.add(viewResultBtn);
+	
+	//下一轮测试按钮
+	var nextBtn = Ti.UI.createButton({
+		title:L('next_exam'),
+		top:730,
+		width:300,
+		height:80,
+		borderRadius:20,
+		borderColor:'#DFE2E7',
+		borderWidth:2
+	});
+	
+	viewResult.add(nextBtn);
+}
 
 function clearViewCurExam()
 {
@@ -268,25 +341,27 @@ function createViewCurExam()
 		width:720,
 		height:200,
 		top:100,
-		font:{fontSize:28},
 	});
 	
 	viewCurEaxm.add(exerWrap);
 	
 	var label_question = Ti.UI.createLabel({
-		text:data_exam[cur_page].question,
+		text:data_exam[cur_page-1].question,
+		fontSize:28
 	});
 	
 	exerWrap.add(label_question);
 	
 	//当前页面题目选项按钮
-	var cur_answers = data_exam[cur_page].answers; 
+	var cur_answers = data_exam[cur_page-1].answers; 
 	var cur_answers_len = cur_answers.length; 
+	
+	var answer_btn = [];
 	
 	for(i=0;i<cur_answers_len;i++)
 	{
 		//Ti.API.info('i=' + i);
-		var answer_btn = Ti.UI.createButton({
+		var answer_btn[i] = Ti.UI.createButton({
 			title:cur_answers[i].cont,
 			top:320 + i*100,
 			width:500,
@@ -294,8 +369,31 @@ function createViewCurExam()
 			borderRadius:20,
 			borderColor:'#DFE2E7',
 			borderWidth:2
-		}); 
-		viewCurEaxm.add(answer_btn);
+		});	
+		viewCurEaxm.add(answer_btn[i]);
+		
+		//Ti.API.info('result = ' + cur_answers[i].result);
+		var isRight = cur_answers[i].result;	
+		
+		answer_btn[i].addEventListener('click',function(e){
+			Ti.App.info(cur_answers[i].result);
+			if(isRight){
+				var cur_score = data_exam[cur_page-1].score;
+				total_score += cur_score;
+			}
+			
+			if(cur_page < data_exam.length){
+				//进入下一个测试题目
+				cur_page++;	
+				clearViewCurExam();	
+				createViewCurExam();
+			}else{
+				//进入测试结果页面
+				pass_btn.hide();
+				clearViewCurExam();
+				createViewResult();
+			}
+		});
 	}
 }
 

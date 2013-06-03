@@ -12,33 +12,6 @@ var win = Ti.UI.currentWindow;
 var windowClosed = false;
 
 
-
-//课堂内容
-Ti.include('/Views/course/_course_video.js');
-
-//课堂练习
-Ti.include('/Views/course/_course_exer.js');
-
-//知识共享
-Ti.include('/Views/course/_knowledge_share.js');
-
-//学习帮助
-Ti.include('/Views/course/_course_help.js');
-
-
-///////////////////////////////////////
-
-//当前窗口关闭事件
-win.addEventListener('close', function() 
-{
-	if (!windowClosed)
-	{
-		windowClosed = true;
-		activeMovie.stop();
-	}
-});
-
-
 /*
  * 窗口底部tab
  */
@@ -49,7 +22,7 @@ var tb1 = Ti.UI.iOS.createTabbedBar({
 	style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
 	height:35,
 	width:600,
-	zindex:5
+	zIndex:5
 });
 
 var flexSpace = Titanium.UI.createButton({
@@ -73,6 +46,31 @@ tb1.addEventListener('click', function(e)
 	}
 		
 });	
+
+
+//课堂内容
+Ti.include('/Views/course/_course_video.js');
+
+//课堂练习
+Ti.include('/Views/course/_course_exer.js');
+
+//知识共享
+Ti.include('/Views/course/_knowledge_share.js');
+
+//学习帮助
+Ti.include('/Views/course/_course_help.js');
+
+
+//当前窗口关闭事件
+win.addEventListener('close', function() 
+{
+	if (!windowClosed)
+	{
+		windowClosed = true;
+		activeMovie.stop();
+	}
+});
+
 
 function showView(view)
 {

@@ -17,6 +17,8 @@
 	<string name="pass">pass</string>
 	<string name="next_exam">next test</string>
 	<string name="view_result">view test result</string>
+	<string name="retest">retest</string>
+	<string name="help">help</string>
 	
 	<string name="course">course</string>
 	<string name="subject">subject</string>

@@ -61,7 +61,7 @@ menu_list_tb.addEventListener('click', function(e){
 			systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 		});
 		var close = Titanium.UI.createButton({
-			title:'返回',
+			title:'课程列表',
 			style:Titanium.UI.iPhone.SystemButtonStyle.DONE
 		});
 		

@@ -10,7 +10,7 @@ var viewHelp = Ti.UI.createView({
 });
 
 var label_help = Ti.UI.createLabel({
-	text:'课堂帮助',
+	text:'学习帮助',
 	top:10,
 	height:50,
 	textAlign:'center'

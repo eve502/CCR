@@ -51,7 +51,7 @@ var qusIcon = Titanium.UI.createImageView({
 viewVideo.add(qusIcon);
 
 //班级成员列表
-var data = [
+var user_data = [
 	{title:'张子涵', header:'老师'},
 	{title:'王萧'},
 	{title:'李四'},
@@ -64,8 +64,8 @@ var data = [
 	];
 	
 var usr_list = Ti.UI.createTableView({
-	data:data
-});
+	data:user_data
+}); 
 
 //班级成员列表弹窗
 var rightButton = Ti.UI.createButton({title: L('btn_close')});

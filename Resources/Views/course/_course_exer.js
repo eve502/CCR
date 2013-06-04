@@ -3,25 +3,25 @@
  */
 
 var data_exam = [
-	{score:25,question:'1.买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{id:1,score:25,question:'1.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
 		{cont:'2元',result:false},
 		{cont:'2元4角',result:false},
 		{cont:'1元2角',result:false}
 	]},
-	{score:25,question:'2.买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{id:2,score:25,question:'2.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
 		{cont:'2元',result:false},
 		{cont:'2元4角',result:false},
 		{cont:'1元2角',result:false}
 	]},
-	{score:25,question:'3.买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{id:3,score:25,question:'3.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
 		{cont:'2元',result:false},
 		{cont:'2元4角',result:false},
 		{cont:'1元2角',result:false}
 	]},
-	{score:25,question:'4.买一个本子要8元，有6元4角，还差多少钱？', answers:[
+	{id:4,score:25,question:'4.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
 		{cont:'2元',result:false},
 		{cont:'2元4角',result:false},
@@ -29,7 +29,7 @@ var data_exam = [
 	]}
 ];
 
-var cur_page = 1; //当前题目
+var cur_page = 0; //当前题目
 var cur_level = 0; //当前测试级别
 var total_score = 0; //题目测试得分
 var result_list = []; //测试结果列表（对or错）
@@ -67,7 +67,7 @@ viewExer.add(label_exer);
 
 //页码
 var label_page = Ti.UI.createLabel({
-	text:cur_page + '/' + data_exam.length,
+	text:(cur_page + 1) + '/' + data_exam.length,
 	top:0,
 	right:20,
 	width:700,
@@ -135,11 +135,12 @@ var pass_btn = Ti.UI.createButton({
 	height:80,
 	borderRadius:20,
 	borderColor:'#DFE2E7',
-	borderWidth:2
+	borderWidth:2,
+	font:{fontSize:24}
 });
 
 pass_btn.addEventListener('click',function(){
-	if(cur_page < data_exam.length){
+	if(cur_page < (data_exam.length - 1)){
 		//进入下一个测试题目
 		cur_page++;	
 		clearViewCurExam();	
@@ -217,7 +218,7 @@ function createViewResult()
 	viewResult.add(retestBtn);
 	retestBtn.addEventListener('click',function(){
 		data_level[cur_level].done = false;
-		cur_page = 1;
+		cur_page = 0;
 		total_score = 0;
 		clearViewResult();
 		createViewCurExam();
@@ -294,7 +295,7 @@ function createResultList()
 	viewResultList.add(retestBtn2);
 	retestBtn2.addEventListener('click',function(){
 		data_level[cur_level].done = false;
-		cur_page = 1;
+		cur_page = 0;
 		total_score = 0;
 		clearViewResult();
 		createViewCurExam();
@@ -318,7 +319,7 @@ function createResultList()
 	viewResultList.add(resultListTb);
 	
 	resultListTb.addEventListener('click',function(e){
-		cur_page = e.index + 1;
+		cur_page = e.index;
 		clearResultList();
 		createViewCurExam();
 	});
@@ -354,11 +355,12 @@ function createViewCurExam()
 		help_btn.addEventListener('click',function(){
 			showView(viewHelp); //跳转到帮助页面
 			tb1.setIndex(3);
+			sHelp_sid = data_exam[cur_page].id; //单一题目id
 		});
 
 	}else{
 		//当前页码
-		label_page.setText(cur_page + '/' + data_exam.length);
+		label_page.setText((cur_page + 1) + '/' + data_exam.length);
 		pass_btn.show(); //显示'跳过'按钮
 	}	
 	
@@ -375,14 +377,14 @@ function createViewCurExam()
 	viewCurEaxm.add(exerWrap);
 	
 	var label_question = Ti.UI.createLabel({
-		text:data_exam[cur_page-1].question,
-		fontSize:28
+		text:data_exam[cur_page].question,
+		font:{fontSize:24}
 	});
 	
 	exerWrap.add(label_question);
 	
 	//当前页面题目选项按钮
-	var cur_answers = data_exam[cur_page-1].answers; 
+	var cur_answers = data_exam[cur_page].answers; 
 	var cur_answers_len = cur_answers.length; 
 
 	var title_list = [];
@@ -397,7 +399,8 @@ function createViewCurExam()
 			height:90,
 			borderRadius:20,
 			borderColor:'#DFE2E7',
-			borderWidth:2
+			borderWidth:2,
+			font:{fontSize:24}
 		});	
 		viewCurEaxm.add(answer_btn);
 		
@@ -411,7 +414,7 @@ function createViewCurExam()
 			//Ti.API.info('index='+index);
 			
 			if(cur_answers[index].result){
-				var cur_score = data_exam[cur_page-1].score;
+				var cur_score = data_exam[cur_page].score;
 				total_score += cur_score;
 				result_list.push(1);
 				showTips(isRight);
@@ -421,7 +424,7 @@ function createViewCurExam()
 			}
 			
 			setTimeout(function(){
-				if(cur_page < data_exam.length){
+				if(cur_page < (data_exam.length - 1)){
 					//进入下一个测试题目
 					cur_page++;	
 					clearViewCurExam();	

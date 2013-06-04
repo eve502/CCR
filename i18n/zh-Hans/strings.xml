@@ -20,6 +20,7 @@
 	<string name="view_result">查看答题情况</string>
 	<string name="retest">重新测试</string>
 	<string name="help">学习帮助</string>
+	<string name="select_comment">选择评语</string>
 	
 	<string name="course">课程</string>
 	<string name="subject">科目</string>

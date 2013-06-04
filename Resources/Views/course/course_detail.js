@@ -10,13 +10,13 @@
 var win = Ti.UI.currentWindow;
 //win closed flag
 var windowClosed = false;
-
+var sHelp_sid = -1; //单一题目帮助的题目id
 
 /*
  * 窗口底部tab
  */
 var tb1 = Ti.UI.iOS.createTabbedBar({
-	labels:['课堂内容', '课堂练习', '知识共享', '学习帮助'],
+	labels:['课堂内容', '课堂练习', '知识共享', '学习帮助','答题情况'],
 	backgroundColor:'#336699',
 	bottom:10,
 	style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
@@ -41,6 +41,7 @@ tb1.addEventListener('click', function(e)
 			case 1:showView(viewExer);break;
 			case 2:showView(viewShare);break;
 			case 3:showView(viewHelp);break;
+			case 4:showView(viewTestResult);break;
 			default:showView(viewVideo);break;
 		}
 	}
@@ -59,6 +60,9 @@ Ti.include('/Views/course/_knowledge_share.js');
 
 //学习帮助
 Ti.include('/Views/course/_course_help.js');
+
+//答题情况
+Ti.include('/Views/course/_test_result.js');
 
 
 //当前窗口关闭事件
@@ -83,6 +87,7 @@ function showView(view)
 	viewExer.hide();
 	viewShare.hide();
 	viewHelp.hide();
+	viewTestResult.hide();
 	view.show();
 }
 

@@ -12,6 +12,8 @@ var win = Ti.UI.currentWindow;
 var windowClosed = false;
 var sHelp_sid = -1; //单一题目帮助的题目id
 
+// include helper functions
+Ti.include('/Views/common/helper.js')
 /*
  * 窗口底部tab
  */
@@ -40,7 +42,14 @@ tb1.addEventListener('click', function(e)
 			case 0:showView(viewVideo);break;
 			case 1:showView(viewExer);break;
 			case 2:showView(viewShare);break;
-			case 3:showView(viewHelp);break;
+			case 3:
+				sHelp_sid=-1;
+				initMHelpTable();
+				//显示多题帮助
+				multiHelpView.show();
+				singleHelpView.hide();
+				showView(viewHelp);
+				break;
 			case 4:showView(viewTestResult);break;
 			default:showView(viewVideo);break;
 		}

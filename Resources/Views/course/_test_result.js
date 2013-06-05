@@ -6,7 +6,7 @@ var test_data=[
 	{title:'张小小',level:0, comment_id:0,process:'80%'},
 	{title:'李大大',level:1, comment_id:2,process:'50%'},
 	{title:'张小小',level:0, comment_id:1,process:'80%'},
-	{title:'张小小',level:0, comment_id:0,process:'80%'}
+	{title:'张涵韵',level:2, comment_id:0,process:'70%'}
 ];
 
 var tb_test_data = [];
@@ -67,7 +67,7 @@ function initRowData()
 	for(i=0;i<test_len;i++)
 	{
 		var row = Ti.UI.createTableViewRow();
-		row.height = 80;
+		row.height = 70;
 		switch(test_data[i].level)
 		{
 			case 0: row.leftImage = "/images/table/imageA.png"; break;
@@ -80,7 +80,7 @@ function initRowData()
 			text: test_data[i].title,
 			shadowOffset:{x:0,y:1},
 			textAlign:'left',
-			top:25,
+			top:20,
 			left:85,
 			width: 100,
 			height:'auto',
@@ -91,7 +91,7 @@ function initRowData()
 		var test_row_label3 = Ti.UI.createLabel({
 			text: test_data[i].process,
 			textAlign:'left',
-			top:30,
+			top:25,
 			left:190,
 			width: 'auto',
 			height:'auto',
@@ -103,7 +103,7 @@ function initRowData()
 			text: comments[test_data[i].comment_id],
 			textAlign:'left',
 			font:{fontWeight:'bold',fontSize:18},
-			top:30,
+			top:25,
 			width:300,
 			height:'auto',
 			right:60,
@@ -113,7 +113,7 @@ function initRowData()
 		
 		var add_comm_btn = Ti.UI.createView({
 			backgroundImage:'/images/table/commentButton.png',
-			top:25,
+			top:20,
 			right:5,
 			width:36,
 			height:34,

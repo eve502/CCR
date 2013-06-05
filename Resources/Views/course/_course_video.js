@@ -39,57 +39,6 @@ var labelTitle = Ti.UI.createLabel({
 viewVideo.add(labelTitle);
 
 
-var qusIcon = Titanium.UI.createImageView({
-	image:'/images/icon/ico_setting_account.png',
-	width:74,
-	height:64,
-	top:535,
-	right:20,
-	zindex:6
-});
-
-viewVideo.add(qusIcon);
-
-//班级成员列表
-var user_data = [
-	{title:'张子涵', header:'老师'},
-	{title:'王萧'},
-	{title:'李四'},
-	{title:'王晓晓', header:'同学'},
-	{title:'赵敏'},
-	{title:'刘谦'},
-	{title:'刘伟'},
-	{title:'明明'},
-	{title:'艾晓静'}
-	];
-	
-var usr_list = Ti.UI.createTableView({
-	data:user_data
-}); 
-
-//班级成员列表弹窗
-var rightButton = Ti.UI.createButton({title: L('btn_close')});
-rightButton.addEventListener('click', function(e){
-    popover.hide();
-});
-
-var popover = Ti.UI.iPad.createPopover({
-    width: 300,
-    height: 400,
-    title: '班级成员',
-    rightNavButton: rightButton
-});
-popover.add(usr_list);
-
-
-//班级成员列表弹窗
-qusIcon.addEventListener('click',function(){
-	//班级成员列表Window
-	popover.show({ view: qusIcon });
-	
-});
-
-
 //课程内容简介
 var labelCont = Ti.UI.createLabel({
 	id:'course_cont',

@@ -156,6 +156,25 @@ var UIB = {
 }
 
 
+//递归删除view内的所有子元素
+function emptyViewChild(view)
+{
+	if(view.children){
+		var viewLen = view.children.length;
+		Ti.API.info('child.length = ' + viewLen);	
+		
+		if(viewLen > 0)
+		{
+			emptyViewChild(view.children[0]);		
+			for(i=0;i<viewLen;i++)
+			{
+				Ti.API.info(view.children.length + ':' + i);	
+				view.remove(view.children[0]);
+			}		
+		}
+	}		
+}
+
 // check object if empty
 function isEmpty(obj){
 	for ( var prop in obj ) {

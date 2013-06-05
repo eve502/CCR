@@ -69,11 +69,50 @@ menu_list_tb.addEventListener('click', function(e){
 		{
 			Ti.API.info('IN HERE');
 			w.close();
-		});		
+		});	
+		
+		//班级成员列表
+		var user_data = [
+			{title:'张子涵', header:'老师'},
+			{title:'王萧'},
+			{title:'李四'},
+			{title:'王晓晓', header:'同学'},
+			{title:'赵敏'},
+			{title:'刘谦'},
+			{title:'刘伟'},
+			{title:'明明'},
+			{title:'艾晓静'}
+			];
+			
+		var usr_list = Ti.UI.createTableView({
+			data:user_data
+		});
+		
+		//班级成员列表弹窗
+		var rightButton = Ti.UI.createButton({title: L('btn_close')});
+		rightButton.addEventListener('click', function(e){
+		    popover.hide();
+		});
+		
+		var popover = Ti.UI.iPad.createPopover({
+		    width: 300,
+		    height: 400,
+		    title: '班级成员',
+		    rightNavButton: rightButton
+		});
+		popover.add(usr_list);	
+		//
+		var qusIcon = Titanium.UI.createButton({
+			systemButton:Titanium.UI.iPhone.SystemButton.INFO_DARK
+		});
+		qusIcon.addEventListener('click',function(){
+			popover.show({ view: qusIcon });
+		});
+		//win.rightNavButton = contactAdd;
 		
 		// create and add toolbar
 		var toolbar = Titanium.UI.iOS.createToolbar({
-			items:[close,flexSpace,label,flexSpace],
+			items:[close,flexSpace,label,flexSpace,qusIcon],
 			top:0,
 			borderTop:false,
 			borderBottom:true

@@ -2,8 +2,6 @@
  * 学习帮助页
  * params: sid: 问题id
  */
-var win = Ti.UI.currentWindow;
-
 var data_sHelp = [
 	{sid:1,question:'1.买一个本子要8元，有6元4角，还差多少钱？', cont:[
 		{user_id:1,user_name:'王晓晓',answer:'8 - 6.4 = 1.6(元)'},

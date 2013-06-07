@@ -9,15 +9,11 @@
 // 主视图文件
 
 var currentUserType = 0; //当前用户类型， 0 -- 学生， 1 -- 老师
-var sHelp_sid = -1; //单一题目帮助的题目id
 
 var mainTabGroup = Ti.UI.createTabGroup({
 	backgroundColor:'#fff',
 	zIndex:3
 });
-
-var currentCourseId = -1; //当前课程id
-
 
 /*
  * 用户设置
@@ -37,11 +33,6 @@ if(currentUserType == 0){
 	Ti.include('/Views/course/subject_tch.js');
 }
 
-/*
- * 课程详情
- */
-Ti.include('/Views/course/course_detail.js');
-
 
 /*
  * tab group
@@ -53,19 +44,6 @@ if(typeof(tab_course)!='undefined'){
 if(typeof(tab_setting)!='undefined'){
 	mainTabGroup.addTab(tab_setting)
 }
-
-//课程详情页面Tabs
-if(typeof(tab_course_detail) != 'undefined')
-{
-	mainTabGroup.addTab(tab_course_detail);
-	mainTabGroup.addTab(tab_course_exer);
-	mainTabGroup.addTab(tab_course_help);
-	mainTabGroup.addTab(tab_my_knowledge);
-	mainTabGroup.addTab(tab_answer_det);
-}
-
-
-
 
 
 

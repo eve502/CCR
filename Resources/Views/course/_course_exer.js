@@ -2,8 +2,6 @@
  * 课程练习页
  */
 
-var win = Ti.UI.currentWindow;
-
 var data_exam = [
 	{id:1,score:25,question:'1.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},

@@ -1,10 +1,8 @@
 /*
  * 课程视频页
  */
-var win = Ti.UI.currentWindow;
-var windowClosed = false;
 
-//tb1.setIndex(0); 
+tb1.setIndex(0); 
 
 var viewVideo = Ti.UI.createView({
 	width:720,
@@ -81,14 +79,3 @@ activeMovie.addEventListener('complete',function()
 });
 
 activeMovie.play();
-
-//当前窗口关闭事件
-win.addEventListener('close', function() 
-{
-	if (!windowClosed)
-	{
-		windowClosed = true;
-		activeMovie.stop();
-	}
-});
-

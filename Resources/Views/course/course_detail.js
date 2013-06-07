@@ -10,10 +10,11 @@
 
 var win = Ti.UI.currentWindow;
 //win closed flag
-currentCourseId = 0;
 var windowClosed = false;
 var sHelp_sid = -1; //单一题目帮助的题目id
 
+// include helper functions
+Ti.include('/Views/common/helper.js');
 
 /*
  * 窗口底部tab

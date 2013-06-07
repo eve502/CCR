@@ -1,0 +1,23 @@
+{
+	"target": "simulator",
+	"deployType": "development",
+	"deviceFamily": "ipad",
+	"iosSdkPath": "/Users/eve/Library/Application Support/Titanium/mobilesdk/osx/3.0.2.GA/iphone",
+	"appGuid": "18300fac-4fd6-4ce4-aba7-d2b0649ecd2d",
+	"tiCoreHash": "fa476584d63923183b326150e75416b3",
+	"modulesHash": "c1f7320cb5afbacbadb21a1463d38f68",
+	"nativeModulesHash": "d41d8cd98f00b204e9800998ecf8427e",
+	"gitHash": "5a77fe7",
+	"name": "CCR",
+	"id": "eve502",
+	"analytics": true,
+	"publisher": "eve",
+	"url": "http://",
+	"version": "1.0",
+	"description": "not specified",
+	"copyright": "2013 by eve",
+	"guid": "18300fac-4fd6-4ce4-aba7-d2b0649ecd2d",
+	"skipJSMinification": true,
+	"forceCopy": false,
+	"forceCopyAll": false
+}

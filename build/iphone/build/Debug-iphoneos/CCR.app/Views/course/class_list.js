@@ -1,1 +1,0 @@
-/Users/eve/Workspace/Apple/CCR/Resources/Views/course/class_list.js

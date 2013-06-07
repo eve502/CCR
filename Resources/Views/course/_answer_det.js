@@ -1,6 +1,7 @@
 /*
  * 学习帮助页
  */
+var win = Ti.UI.currentWindow;
 
 var test_data=[
 	{title:'张小小',level:0, comment_id:0,process:'80%'},

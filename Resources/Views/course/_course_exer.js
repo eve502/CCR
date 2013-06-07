@@ -2,6 +2,8 @@
  * 课程练习页
  */
 
+var win = Ti.UI.currentWindow;
+
 var data_exam = [
 	{id:1,score:25,question:'1.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
@@ -114,11 +116,13 @@ var isWrong = Ti.UI.createImageView({
 
 tipsWrap.add(isWrong);
 
-win.add(viewExer);
+
 
 
 //页面内容初始化
 createCurExam();
+
+win.add(viewExer);
 
 
 function showTips(obj)
@@ -134,7 +138,7 @@ function showTips(obj)
 
 function createViewResult()
 {
-	label_page.setText(''); //清除页码标志
+	label_page.text = ''; //清除页码标志
 	
 	data_level[cur_level].done = true; //标志本套测试已经做过
 	
@@ -225,7 +229,7 @@ function createViewResult()
 
 function createResultList()
 {
-	label_page.setText('');	
+	label_page.text = '';	
 	
 	//重新测试按钮
 	var retestBtn2 = Ti.UI.createButton({
@@ -262,12 +266,12 @@ function createResultList()
 		height:500,
 		top:0
 	});
-	
 	viewExerCont.add(resultListTb);
 	
 	resultListTb.addEventListener('click',function(e){
 		cur_page = e.index;
-		emptyViewChild(viewExerCont);
+		viewExerCont.remove(resultListTb);
+		//emptyViewChild(viewExerCont);
 		createCurExam();
 	});
 }
@@ -276,8 +280,7 @@ function createResultList()
 function createCurExam()
 {	
 	if(data_level[cur_level].done){
-		label_page.setText(''); 
-		pass_btn.hide(); //隐藏'跳过'按钮
+		label_page.text = ''; 
 		
 		//学习帮助按钮
 		var help_btn = Ti.UI.createButton({
@@ -403,12 +406,11 @@ function createCurExam()
 						emptyViewChild(viewExerCont);
 						createViewResult();					
 					}				
-				},500);		
+				},500);	
 			});
 		}		
 	}
 }
-
 
 
 

@@ -3096,8 +3096,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"/Users/eve/Library/Application Support/Titanium/mobilesdk/osx/3.0.2.GA/iphone/builder.py\" xcode\nexit $?";
-                };
+			shellScript = "if [ \"x$TITANIUM_CLI_XCODEBUILD\" == \"x\" ]; then NO_COLORS=\"--no-colors\"; else NO_COLORS=\"\"; fi\n/usr/local/bin/node \"/usr/local/bin/titanium\" build --platform iphone --sdk 3.0.2.GA --no-prompt --no-banner $NO_COLORS --xcode\nexit $?";
+		};
 		24CA8D03111169070084E2DE /* Post-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3110,8 +3110,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo 'post-compile'";
-                };
+			shellScript = "echo 'Xcode Post-Compile Phase: Touching important files'\ntouch -c Classes/ApplicationRouting.h Classes/ApplicationRouting.m Classes/ApplicationDefaults.m Classes/ApplicationMods.m Classes/defines.h";
+		};
 		24D8E3B9119B9D8A00F8CAA6 /* Pre-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3124,8 +3124,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"/Users/eve/Library/Application Support/Titanium/mobilesdk/osx/3.0.2.GA/iphone/builder.py\" xcode\nexit $?";
-                };
+			shellScript = "if [ \"x$TITANIUM_CLI_XCODEBUILD\" == \"x\" ]; then NO_COLORS=\"--no-colors\"; else NO_COLORS=\"\"; fi\n/usr/local/bin/node \"/usr/local/bin/titanium\" build --platform iphone --sdk 3.0.2.GA --no-prompt --no-banner $NO_COLORS --xcode\nexit $?";
+		};
 		24D8E4AD119B9D8A00F8CAA6 /* Post-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3138,8 +3138,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo 'post-compile'";
-                };
+			shellScript = "echo 'Xcode Post-Compile Phase: Touching important files'\ntouch -c Classes/ApplicationRouting.h Classes/ApplicationRouting.m Classes/ApplicationDefaults.m Classes/ApplicationMods.m Classes/defines.h";
+		};
 		DABB369F12E8CB280026A6EA /* Pre-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3152,8 +3152,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"/Users/eve/Library/Application Support/Titanium/mobilesdk/osx/3.0.2.GA/iphone/builder.py\" xcode\nexit $?";
-                };
+			shellScript = "if [ \"x$TITANIUM_CLI_XCODEBUILD\" == \"x\" ]; then NO_COLORS=\"--no-colors\"; else NO_COLORS=\"\"; fi\n/usr/local/bin/node \"/usr/local/bin/titanium\" build --platform iphone --sdk 3.0.2.GA --no-prompt --no-banner $NO_COLORS --xcode\nexit $?";
+		};
 		DABB37B812E8CB280026A6EA /* Post-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3166,8 +3166,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo 'post-compile'";
-                };
+			shellScript = "echo 'Xcode Post-Compile Phase: Touching important files'\ntouch -c Classes/ApplicationRouting.h Classes/ApplicationRouting.m Classes/ApplicationDefaults.m Classes/ApplicationMods.m Classes/defines.h";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */

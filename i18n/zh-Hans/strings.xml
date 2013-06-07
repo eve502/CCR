@@ -28,8 +28,9 @@
 	
 	<string name="course_det">课程内容</string>
 	<string name="course_exer">课程练习</string>
-	<string name="knowledge_share">知识共享</string>
 	<string name="course_help">学习帮助</string>
+	<string name="my_knowledge">我的知识</string>
+	<string name="answer_det">答题情况</string>
 	
 	
 	<string name="tab_course">课程</string>

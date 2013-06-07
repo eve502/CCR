@@ -12,9 +12,9 @@ var Win = Ti.UI.currentWindow
 
 // 
 var _course_data = [
-	{title:"第一章 加减法", hasChild:true},
-	{title:"第二章 乘除法", hasChild:true},
-	{title:"第三章 平方", hasChild:true},
+	{id:1,title:"第一章 加减法", hasChild:true},
+	{id:2,title:"第二章 乘除法", hasChild:true},
+	{id:3,title:"第三章 平方", hasChild:true},
 ]
 
 //搜索框
@@ -37,13 +37,17 @@ var menu_list_tb = Ti.UI.createTableView({
 });
 
 
-
 //表格事件
 menu_list_tb.addEventListener('click', function(e){
 	//Ti.API.info(e.rowData.hasChild);
 	if (e.rowData.hasChild)
 	{
-		//viewMode = 1;	
+		currentCourseId = e.rowData.id;
+		
+		mainTabGroup.setActiveTab(1);
+		
+		
+		/*
 		//Ti.API.info(e.rowData.title);
 		var w = Titanium.UI.createWindow({
 			url:"/Views/course/course_detail.js",
@@ -122,6 +126,7 @@ menu_list_tb.addEventListener('click', function(e){
 		w.open({animated:true});
 	
 		//Ti.UI.currentTab.open(w,{animated:true});
+		*/
 	}
 });
 

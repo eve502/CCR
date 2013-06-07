@@ -1,6 +1,7 @@
 /**
  * 知识共享页
  */
+var win = Ti.UI.currentWindow;
 
 var viewShare = Ti.UI.createView({
 	width:720,

@@ -7,18 +7,106 @@
 // 
 
 
+
 var win = Ti.UI.currentWindow;
 //win closed flag
-var windowClosed = false;
-var sHelp_sid = -1; //单一题目帮助的题目id
+currentCourseId = 0;
 
-// include helper functions
-Ti.include('/Views/common/helper.js')
+
+/*
+ * 课堂内容页
+ */
+var win_course_detail = Ti.UI.createWindow({
+	url:'/Views/course/_course_video.js',
+});
+
+//课堂内容页Tab
+var tab_course_detail = Ti.UI.createTab({
+	title:L('course_det'),
+	icon:'/images/icon/ico_cloud.png',
+	window:win_course_detail
+});
+
+/*
+ * 课堂练习页
+ */
+var win_course_exer = Ti.UI.createWindow({
+	url:'/Views/course/_course_exer.js',
+});
+
+//课堂练习页Tab
+var tab_course_exer = Ti.UI.createTab({
+	title:L('course_exer'),
+	icon:'/images/icon/ico_cloud.png',
+	window:win_course_exer
+});
+
+/*
+ * 学习帮助页
+ */
+var win_course_help = Ti.UI.createWindow({
+	url:'/Views/course/_course_help.js',
+});
+
+//学习帮助页Tab
+var tab_course_help = Ti.UI.createTab({
+	title:L('course_help'),
+	icon:'/images/icon/ico_cloud.png',
+	window:win_course_help
+});
+
+/*
+ * 我的知识页
+ */
+var win_my_knowledge = Ti.UI.createWindow({
+	url:'/Views/course/_course_video.js',
+});
+
+//我的知识页Tab
+var tab_my_knowledge = Ti.UI.createTab({
+	title:L('_my_knowledge'),
+	icon:'/images/icon/ico_cloud.png',
+	window:win_my_knowledge
+});
+
+
+/*
+ * 答题情况页
+ */
+var win_answer_det = Ti.UI.createWindow({
+	url:'/Views/course/_answer_det.js',
+});
+
+//我的知识页Tab
+var tab_answer_det = Ti.UI.createTab({
+	title:L('_my_knowledge'),
+	icon:'/images/icon/ico_cloud.png',
+	window:win_answer_det
+});
+
+
+
+//课堂内容
+//Ti.include('/Views/course/_course_video.js');
+
+//课堂练习
+//Ti.include('/Views/course/_course_exer.js');
+
+//学习帮助
+//Ti.include('/Views/course/_course_help.js');
+
+//我的知识
+//Ti.include('/Views/course/_my_knowledge.js');
+
+//答题情况
+//Ti.include('/Views/course/_answer_det.js');
+
+
 /*
  * 窗口底部tab
- */
+ 
 var tb1 = Ti.UI.iOS.createTabbedBar({
-	labels:['课堂内容', '课堂练习', '知识共享', '学习帮助','答题情况'],
+	labels:['课堂内容', '课堂练习', '学习帮助', '我的知识','答题情况'],
 	backgroundColor:'#336699',
 	bottom:10,
 	style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
@@ -41,8 +129,7 @@ tb1.addEventListener('click', function(e)
 		switch(e.index){
 			case 0:showView(viewVideo);break;
 			case 1:showView(viewExer);break;
-			case 2:showView(viewShare);break;
-			case 3:
+			case 2:
 				sHelp_sid=-1;
 				initMHelpTable();
 				//显示多题帮助
@@ -50,39 +137,14 @@ tb1.addEventListener('click', function(e)
 				singleHelpView.hide();
 				showView(viewHelp);
 				break;
+			case 3:showView(viewShare);break;			
 			case 4:showView(viewTestResult);break;
-			default:showView(viewVideo);break;
+			default:showView(viewVideo);
 		}
 	}
-		
 });	
 
 
-//课堂内容
-Ti.include('/Views/course/_course_video.js');
-
-//课堂练习
-Ti.include('/Views/course/_course_exer.js');
-
-//知识共享
-Ti.include('/Views/course/_knowledge_share.js');
-
-//学习帮助
-Ti.include('/Views/course/_course_help.js');
-
-//答题情况
-Ti.include('/Views/course/_test_result.js');
-
-
-//当前窗口关闭事件
-win.addEventListener('close', function() 
-{
-	if (!windowClosed)
-	{
-		windowClosed = true;
-		activeMovie.stop();
-	}
-});
 
 
 function showView(view)
@@ -99,7 +161,7 @@ function showView(view)
 	viewTestResult.hide();
 	view.show();
 }
-
+*/
 
 
 

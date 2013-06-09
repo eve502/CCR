@@ -136,9 +136,9 @@ function showTips(obj)
 
 function createViewResult()
 {
-	label_page.text = ''; //清除页码标志
-	
+	label_page.text = ''; //清除页码标志	
 	data_level[cur_level].done = true; //标志本套测试已经做过
+	emptyAllChildren(viewExerCont);
 	
 	//查看测试结果按钮
 	var viewResultBtn = Ti.UI.createButton({
@@ -154,7 +154,6 @@ function createViewResult()
 	
 	viewExerCont.add(viewResultBtn);
 	viewResultBtn.addEventListener('click',function(e){
-		emptyAllChildren(viewExerCont);
 		createResultList();
 	});
 	
@@ -176,7 +175,6 @@ function createViewResult()
 		data_level[cur_level].done = false;
 		cur_page = 0;
 		total_score = 0;
-		emptyAllChildren(viewExerCont);
 		createCurExam();
 	});
 	
@@ -227,7 +225,8 @@ function createViewResult()
 
 function createResultList()
 {
-	label_page.text = '';	
+	label_page.text = '';
+	emptyAllChildren(viewExerCont);
 	
 	//重新测试按钮
 	var retestBtn2 = Ti.UI.createButton({
@@ -243,10 +242,10 @@ function createResultList()
 	
 	viewExerCont.add(retestBtn2);
 	retestBtn2.addEventListener('click',function(){
+		Ti.API.info('retest2');
 		data_level[cur_level].done = false;
 		cur_page = 0;
 		total_score = 0;
-		emptyAllChildren(viewExerCont);
 		createCurExam();
 	});
 	
@@ -268,8 +267,7 @@ function createResultList()
 	
 	resultListTb.addEventListener('click',function(e){
 		cur_page = e.index;
-		viewExerCont.remove(resultListTb);
-		//emptyAllChildren(viewExerCont);
+		viewExerCont.remove(resultListTb); //删除表格
 		createCurExam();
 	});
 }
@@ -277,6 +275,8 @@ function createResultList()
 //页面内容创建
 function createCurExam()
 {	
+	emptyAllChildren(viewExerCont);	//清空viewExerCont的内容
+	
 	if(data_level[cur_level].done){
 		label_page.text = ''; 
 		
@@ -322,12 +322,10 @@ function createCurExam()
 		pass_btn.addEventListener('click',function(){
 			if(cur_page < (data_exam.length - 1)){
 				//进入下一个测试题目
-				cur_page++;	
-				emptyAllChildren(viewExerCont);	
+				cur_page++;
 				createCurExam();
 			}else{
 				//进入测试结果页面
-				emptyAllChildren(viewExerCont);
 				createViewResult();
 			}
 		});		
@@ -397,11 +395,9 @@ function createCurExam()
 					if(cur_page < (data_exam.length - 1)){
 						//进入下一个测试题目
 						cur_page++;	
-						emptyAllChildren(viewExerCont);
 						createCurExam();
 					}else{
 						//进入测试结果页面
-						emptyAllChildren(viewExerCont);
 						createViewResult();					
 					}				
 				},500);	

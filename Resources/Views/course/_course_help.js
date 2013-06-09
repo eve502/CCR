@@ -158,7 +158,6 @@ function initMHelpTable()
 	mHelpList.addEventListener('click',function(e){
 		//Ti.API.info('e.index=' + e.index);
 		sHelp_sid = data_sHelp[e.index].sid;
-		emptyViewChild(singleHelpView);  //清空singleHelpView的内容
 		multiHelpView.hide();
 		singleHelpView.show();
 		answerView.hide();
@@ -201,8 +200,9 @@ function createMHelpTableRow()
 
 function initSHelpTable()
 {
+	emptyAllChildren(singleHelpView);  //清空singleHelpView的内容
+	
 	var sHelp_sid_index = getArrayIndex(sHelp_sid); //题目id所对应的data_sHelp的数据.
-	//Ti.API.info("sHelp_sid_index="+sHelp_sid_index);
 	
 	//当前问题描述wrap
 	var singleHelpWrap = Ti.UI.createView({

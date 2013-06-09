@@ -163,11 +163,10 @@ function emptyAllChildren(view)
 		
 		if(viewLen > 0)
 		{
-			emptyAllChildren(view.children[0]);		
+			emptyAllChildren(view.children[view.children.length-1]);		
 			for(i=0;i<viewLen;i++)
 			{
-				Ti.API.info(view.children.length + ':' + i);
-				view.remove(view.children[0]);
+				view.remove(view.children[view.children.length-1]);
 			}		
 		}
 	}		

@@ -20,6 +20,8 @@
 "retest" = "retest";
 "help" = "help";
 "select_comment" = "select comment";
+"return_help_list" = "return help list";
+"return" = "return";
 "course" = "course";
 "subject" = "subject";
 "setting" = "setting";

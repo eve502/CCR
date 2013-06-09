@@ -154,7 +154,7 @@ function createViewResult()
 	
 	viewExerCont.add(viewResultBtn);
 	viewResultBtn.addEventListener('click',function(e){
-		emptyViewChild(viewExerCont);
+		emptyAllChildren(viewExerCont);
 		createResultList();
 	});
 	
@@ -176,7 +176,7 @@ function createViewResult()
 		data_level[cur_level].done = false;
 		cur_page = 0;
 		total_score = 0;
-		emptyViewChild(viewExerCont);
+		emptyAllChildren(viewExerCont);
 		createCurExam();
 	});
 	
@@ -246,7 +246,7 @@ function createResultList()
 		data_level[cur_level].done = false;
 		cur_page = 0;
 		total_score = 0;
-		emptyViewChild(viewExerCont);
+		emptyAllChildren(viewExerCont);
 		createCurExam();
 	});
 	
@@ -269,7 +269,7 @@ function createResultList()
 	resultListTb.addEventListener('click',function(e){
 		cur_page = e.index;
 		viewExerCont.remove(resultListTb);
-		//emptyViewChild(viewExerCont);
+		//emptyAllChildren(viewExerCont);
 		createCurExam();
 	});
 }
@@ -323,11 +323,11 @@ function createCurExam()
 			if(cur_page < (data_exam.length - 1)){
 				//进入下一个测试题目
 				cur_page++;	
-				emptyViewChild(viewExerCont);	
+				emptyAllChildren(viewExerCont);	
 				createCurExam();
 			}else{
 				//进入测试结果页面
-				emptyViewChild(viewExerCont);
+				emptyAllChildren(viewExerCont);
 				createViewResult();
 			}
 		});		
@@ -397,11 +397,11 @@ function createCurExam()
 					if(cur_page < (data_exam.length - 1)){
 						//进入下一个测试题目
 						cur_page++;	
-						emptyViewChild(viewExerCont);
+						emptyAllChildren(viewExerCont);
 						createCurExam();
 					}else{
 						//进入测试结果页面
-						emptyViewChild(viewExerCont);
+						emptyAllChildren(viewExerCont);
 						createViewResult();					
 					}				
 				},500);	

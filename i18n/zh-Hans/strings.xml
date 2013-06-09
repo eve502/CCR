@@ -21,6 +21,8 @@
 	<string name="retest">重新测试</string>
 	<string name="help">学习帮助</string>
 	<string name="select_comment">选择评语</string>
+	<string name="return_help_list">返回帮助首页</string>
+	<string name="return">返回</string>
 	
 	<string name="course">课程</string>
 	<string name="subject">科目</string>

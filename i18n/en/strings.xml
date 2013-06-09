@@ -20,6 +20,8 @@
 	<string name="retest">retest</string>
 	<string name="help">help</string>
 	<string name="select_comment">select comment</string>
+	<string name="return_help_list">return help list</string>
+	<string name="return">return</string>
 	
 	<string name="course">course</string>
 	<string name="subject">subject</string>

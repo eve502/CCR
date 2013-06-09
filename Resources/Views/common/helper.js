@@ -156,14 +156,14 @@ var UIB = {
 }
 
 //递归删除view内的所有子元素
-function emptyViewChild(view)
+function emptyAllChildren(view)
 {
 	if(view.children){
 		var viewLen = view.children.length;
 		
 		if(viewLen > 0)
 		{
-			emptyViewChild(view.children[0]);		
+			emptyAllChildren(view.children[0]);		
 			for(i=0;i<viewLen;i++)
 			{
 				Ti.API.info(view.children.length + ':' + i);

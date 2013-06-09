@@ -57,7 +57,82 @@ viewHelp.add(multiHelpView);
 //多题帮助的表格初始化
 initMHelpTable();
 
+/*
+ * 解答详情页
+ */
+var answerView = Ti.UI.createView({
+	visible:false,
+	width:720,
+	height:850
+});
+viewHelp.add(answerView);
+
+
+
+
 win.add(viewHelp);
+
+function initAnswerCont(aid)
+{
+	var sHelp_sid_index = getArrayIndex(sHelp_sid);
+	
+	//返回学习帮助列表按钮
+	var returnBtn = Ti.UI.createButton({
+		title:L('return'),
+		systemButton:Titanium.UI.iPhone.SystemButton.DONE,
+		left:10,
+		top:0
+	});
+	answerView.add(returnBtn);
+	
+	//返回按钮, 返回到答案列表
+	returnBtn.addEventListener('click',function(e){
+		initSHelpTable();	
+		multiHelpView.hide();
+		singleHelpView.show();
+		answerView.hide();
+	});
+	
+	//当前问题描述wrap
+	var qusWrap = Ti.UI.createView({
+		borderRadius:20,
+		borderWidth:10,
+		borderColor:'#DFE2E7',
+		width:720,
+		height:120,
+		top:55,
+	});		
+	answerView.add(qusWrap);
+	
+	//问题题目
+	var qusTitle = Ti.UI.createLabel({
+		text:data_sHelp[sHelp_sid_index].question,
+		font:{fontSize:20},
+		height:100,
+	});
+	qusWrap.add(qusTitle);
+	
+	//回答内容边框
+	var answerWrap = Ti.UI.createView({
+		borderRadius:20,
+		borderWidth:5,
+		borderColor:'#DFE2E7',
+		width:600,
+		height:600,
+		top:200,
+	});		
+	answerView.add(answerWrap);
+	
+	//回答内容
+	var answerCont = Ti.UI.createLabel({
+		text:data_sHelp[sHelp_sid_index].cont[aid].answer,
+		font:{fontSize:20},
+		top:20,
+		left:20
+	});
+	answerWrap.add(answerCont);
+	
+}
 
 function initMHelpTable()
 {
@@ -81,11 +156,12 @@ function initMHelpTable()
 	multiHelpView.add(mHelpList);
 	
 	mHelpList.addEventListener('click',function(e){
-		Ti.API.info('e.index=' + e.index);
+		//Ti.API.info('e.index=' + e.index);
 		sHelp_sid = data_sHelp[e.index].sid;
 		emptyViewChild(singleHelpView);  //清空singleHelpView的内容
 		multiHelpView.hide();
 		singleHelpView.show();
+		answerView.hide();
 		initSHelpTable();
 	});
 }
@@ -126,7 +202,7 @@ function createMHelpTableRow()
 function initSHelpTable()
 {
 	var sHelp_sid_index = getArrayIndex(sHelp_sid); //题目id所对应的data_sHelp的数据.
-	Ti.API.info("sHelp_sid_index="+sHelp_sid_index);
+	//Ti.API.info("sHelp_sid_index="+sHelp_sid_index);
 	
 	//当前问题描述wrap
 	var singleHelpWrap = Ti.UI.createView({
@@ -135,16 +211,32 @@ function initSHelpTable()
 		borderColor:'#DFE2E7',
 		width:720,
 		height:120,
-		top:10,
+		top:55,
 	});		
 	singleHelpView.add(singleHelpWrap);
 	
 	var singleTitle = Ti.UI.createLabel({
-		font:{fontSize:24},
-		top:10,
+		font:{fontSize:20},
 		height:100,
 	});
 	singleHelpWrap.add(singleTitle);
+	
+	//返回学习帮助列表按钮
+	var returnMHelpBtn = Ti.UI.createButton({
+		title:L('return_help_list'),
+		systemButton:Titanium.UI.iPhone.SystemButton.DONE,
+		left:10,
+		top:0
+	});
+	singleHelpView.add(returnMHelpBtn);
+	
+	returnMHelpBtn.addEventListener('click',function(e){
+		sHelp_sid=-1;
+		initMHelpTable();		
+		multiHelpView.show(); //显示多题帮助
+		singleHelpView.hide();
+		answerView.hide();
+	});
 	
 	if(sHelp_sid_index == -1){
 		singleTitle.setText("暂无数据,可联系老师寻求帮助.");
@@ -157,9 +249,16 @@ function initSHelpTable()
 			data:tb_sHelp_data,
 			style: Titanium.UI.iPhone.TableViewStyle.GROUPED,
 			backgroundColor:'#FFF',
-			top:140,
+			top:175,
 		});
 		singleHelpView.add(sHelpList);
+		
+		sHelpList.addEventListener('click',function(e){
+			initAnswerCont(e.index);
+			multiHelpView.hide(); //显示多题帮助
+			singleHelpView.hide();
+			answerView.show();
+		})
 	}
 }
 

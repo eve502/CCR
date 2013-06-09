@@ -20,6 +20,8 @@
 "retest" = "重新测试";
 "help" = "学习帮助";
 "select_comment" = "选择评语";
+"return_help_list" = "返回帮助首页";
+"return" = "返回";
 "course" = "课程";
 "subject" = "科目";
 "setting" = "设置";

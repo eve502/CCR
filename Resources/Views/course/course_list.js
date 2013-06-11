@@ -7,15 +7,24 @@
 // 
 
 
-var Win = Ti.UI.currentWindow
 
+var Win = Ti.UI.currentWindow
 
 // 
 var _course_data = [
 	{title:"第一章 加减法", hasChild:true},
 	{title:"第二章 乘除法", hasChild:true},
 	{title:"第三章 平方", hasChild:true},
-]
+];
+
+var main_view = Ti.UI.createView({
+	backgroundColor:'#fff',
+	top:0,
+	width:526,
+	//left:292,
+	left:0,
+	zIndex:2
+});
 
 //搜索框
 var search = Titanium.UI.createSearchBar({
@@ -67,7 +76,9 @@ menu_list_tb.addEventListener('click', function(e){
 		
 		close.addEventListener('click', function()
 		{
-			Ti.API.info('IN HERE');
+			//Ti.API.info('IN HERE');
+			Ti.UI.currentWindow.Pmenu.setWidth(343);
+			Ti.UI.currentWindow._parent.setLeft(242);
 			w.close();
 		});	
 		
@@ -119,14 +130,19 @@ menu_list_tb.addEventListener('click', function(e){
 		});
 		w.add(toolbar);	
 		
-		w.open({animated:true});
-	
-		//Ti.UI.currentTab.open(w,{animated:true});
+		//w.open({animated:true});	
+		
+		Ti.UI.currentWindow.Pwin.setNavBarHidden(true);
+		//Ti.UI.currentWindow.Pwin.setTabBarHidden(true);
+		Ti.UI.currentWindow.Pmenu.setWidth(0);
+		Ti.UI.currentWindow._parent.setLeft(0);
+				
+		Ti.UI.currentTab.open(w,{animated:true});
 	}
 });
 
 // add table view to the window
-Win.add(menu_list_tb);
+main_view.add(menu_list_tb);
 
-
+Win.add(main_view);
 

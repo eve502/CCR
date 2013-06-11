@@ -26,7 +26,8 @@ Ti.include('/Views/account/setting.js');
  */
 if(currentUserType == 0){
 	//学生课程列表
-	Ti.include('/Views/course/subject_stu.js');
+	Ti.include('/Views/course/subject.js');
+	//Ti.include('/Views/course/subject_stu.js');
 	
 }else if(currentUserType == 1){
 	//学生课程列表

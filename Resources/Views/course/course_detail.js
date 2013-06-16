@@ -9,6 +9,115 @@
 
 
 var win = Ti.UI.currentWindow;
+
+
+/*
+ * 当前窗口TabGroup
+
+var c_tab_data = [
+	{title:'课堂内容',url:'/Views/course/_course_video.js'},
+	{title:'课堂练习',url:'/Views/course/_course_exer.js'},
+	{title:'学习帮助',url:'/Views/course/_course_help.js'},
+	{title:'我的知识',url:'/Views/course/_my_knowledge.js'},
+	{title:'答题情况',url:'/Views/course/_answer_det.js'},
+];
+
+var detailTabGroup = Ti.UI.createTabGroup();
+
+var tabs_len = c_tab_data.length;
+for(i=0;i<tabs_len;i++){
+	//窗口
+	var c_tab_win = Ti.UI.createWindow({
+		title:c_tab_data[i].title,
+		url:c_tab_data[i].url,
+	});
+	//Tab
+	var c_tab = Ti.UI.createTab({
+		title:c_tab_data[i].title,
+		window:c_tab_win,
+	});
+	// add Tab to tabgroup
+	detailTabGroup.addTab(c_tab);	
+}
+
+detailTabGroup.open();
+
+win.add(detailTabGroup);
+ */
+
+
+////////////////////////////////////////////
+//右上角按钮, 点击弹窗选择联系
+
+//班级成员列表
+var user_data = [
+	{title:'张子涵', header:'老师'},
+	{title:'王萧'},
+	{title:'李四'},
+	{title:'王晓晓', header:'同学'},
+	{title:'赵敏'},
+	{title:'刘谦'},
+	{title:'刘伟'},
+	{title:'明明'},
+	{title:'艾晓静'}
+	];
+	
+var usr_list = Ti.UI.createTableView({
+	data:user_data
+});
+
+//班级成员列表弹窗
+var rightButton = Ti.UI.createButton({title: L('btn_close')});
+rightButton.addEventListener('click', function(e){
+    popover.hide();
+});
+
+var popover = Ti.UI.iPad.createPopover({
+    width: 300,
+    height: 400,
+    title: '班级成员',
+    rightNavButton: rightButton
+});
+popover.add(usr_list);	
+//
+var qusIcon = Titanium.UI.createButton({
+	systemButton:Titanium.UI.iPhone.SystemButton.INFO_DARK
+});
+qusIcon.addEventListener('click',function(){
+	popover.show({ view: qusIcon });
+});
+win.setRightNavButton(qusIcon);
+
+//窗口NavBar菜单
+var label = Titanium.UI.createButton({
+	title:win.title,
+	color:'#fff',
+	style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+});
+
+var flexSpace = Titanium.UI.createButton({
+	systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+});
+var close = Titanium.UI.createButton({
+	title:'课程',
+	style:Titanium.UI.iPhone.SystemButtonStyle.DONE
+});
+
+close.addEventListener('click', function()
+{
+	win.close();
+});	
+
+// Toolbar
+var top_toolbar = Titanium.UI.iOS.createToolbar({
+	items:[close,flexSpace,label,flexSpace,qusIcon],
+	top:0,
+	borderTop:false,
+	borderBottom:true
+});
+win.add(top_toolbar);		
+
+
 //win closed flag
 var windowClosed = false;
 var sHelp_sid = -1; //单一题目帮助的题目id
@@ -21,19 +130,21 @@ Ti.include('/Views/common/helper.js');
  */
 var tb1 = Ti.UI.iOS.createTabbedBar({
 	labels:['课堂内容', '课堂练习', '学习帮助', '我的知识','答题情况'],
-	backgroundColor:'#336699',
 	bottom:10,
 	style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
-	height:35,
 	width:600,
-	zIndex:5
+	zIndex:5,
+	borderRadius:0,
 });
 
-var flexSpace = Titanium.UI.createButton({
-	systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+// Toolbar
+var btm_toolbar = Titanium.UI.iOS.createToolbar({
+	items:[flexSpace,tb1,flexSpace],
+	bottom:0,
+	borderTop:true,
+	borderBottom:false
 });
-
-win.add(tb1);
+win.add(btm_toolbar);
 
 
 tb1.addEventListener('click', function(e)
@@ -99,6 +210,7 @@ function showView(view)
 	viewTestResult.hide();
 	view.show();
 }
+
 
 
 

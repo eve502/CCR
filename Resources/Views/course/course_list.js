@@ -8,7 +8,7 @@
 
 
 
-var Win = Ti.UI.currentWindow
+var Win = Ti.UI.currentWindow;
 
 // 
 var _course_data = [
@@ -20,7 +20,7 @@ var _course_data = [
 var main_view = Ti.UI.createView({
 	backgroundColor:'#fff',
 	top:0,
-	width:526,
+	//width:526,
 	//left:292,
 	left:0,
 	zIndex:2
@@ -49,95 +49,20 @@ var menu_list_tb = Ti.UI.createTableView({
 
 //表格事件
 menu_list_tb.addEventListener('click', function(e){
-	//Ti.API.info(e.rowData.hasChild);
 	if (e.rowData.hasChild)
 	{
-		//viewMode = 1;	
 		//Ti.API.info(e.rowData.title);
 		var w = Titanium.UI.createWindow({
 			url:"/Views/course/course_detail.js",
+			navBarHidden:false,
 			title:e.rowData.title,
-			backgroundColor:'#FFF'
+			backgroundColor:'#FFF',
 		});
+		//打开窗口
+		w.open({animated:true});
 		
-		var label = Titanium.UI.createButton({
-			title:e.rowData.title,
-			color:'#fff',
-			style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN
-		});
-		
-		var flexSpace = Titanium.UI.createButton({
-			systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
-		});
-		var close = Titanium.UI.createButton({
-			title:'课程列表',
-			style:Titanium.UI.iPhone.SystemButtonStyle.DONE
-		});
-		
-		close.addEventListener('click', function()
-		{
-			//Ti.API.info('IN HERE');
-			Ti.UI.currentWindow.Pmenu.setWidth(343);
-			Ti.UI.currentWindow._parent.setLeft(242);
-			w.close();
-		});	
-		
-		//班级成员列表
-		var user_data = [
-			{title:'张子涵', header:'老师'},
-			{title:'王萧'},
-			{title:'李四'},
-			{title:'王晓晓', header:'同学'},
-			{title:'赵敏'},
-			{title:'刘谦'},
-			{title:'刘伟'},
-			{title:'明明'},
-			{title:'艾晓静'}
-			];
-			
-		var usr_list = Ti.UI.createTableView({
-			data:user_data
-		});
-		
-		//班级成员列表弹窗
-		var rightButton = Ti.UI.createButton({title: L('btn_close')});
-		rightButton.addEventListener('click', function(e){
-		    popover.hide();
-		});
-		
-		var popover = Ti.UI.iPad.createPopover({
-		    width: 300,
-		    height: 400,
-		    title: '班级成员',
-		    rightNavButton: rightButton
-		});
-		popover.add(usr_list);	
-		//
-		var qusIcon = Titanium.UI.createButton({
-			systemButton:Titanium.UI.iPhone.SystemButton.INFO_DARK
-		});
-		qusIcon.addEventListener('click',function(){
-			popover.show({ view: qusIcon });
-		});
-		//win.rightNavButton = contactAdd;
-		
-		// create and add toolbar
-		var toolbar = Titanium.UI.iOS.createToolbar({
-			items:[close,flexSpace,label,flexSpace,qusIcon],
-			top:0,
-			borderTop:false,
-			borderBottom:true
-		});
-		w.add(toolbar);	
-		
-		//w.open({animated:true});	
-		
-		Ti.UI.currentWindow.Pwin.setNavBarHidden(true);
-		//Ti.UI.currentWindow.Pwin.setTabBarHidden(true);
-		Ti.UI.currentWindow.Pmenu.setWidth(0);
-		Ti.UI.currentWindow._parent.setLeft(0);
-				
-		Ti.UI.currentTab.open(w,{animated:true});
+		//打开窗口	
+		//Ti.UI.currentTab.open(w,{animated:true});
 	}
 });
 

@@ -18,7 +18,7 @@ var mainTabGroup = Ti.UI.createTabGroup({
 /*
  * 用户设置
  */
-Ti.include('/Views/account/setting.js');
+Ti.include('/Views/setting/setting.js');
 
 
 /*
@@ -26,7 +26,7 @@ Ti.include('/Views/account/setting.js');
  */
 if(currentUserType == 0){
 	//学生课程列表
-	Ti.include('/Views/course/subject.js');
+	Ti.include('/Views/course/subject_stu.js');
 	//Ti.include('/Views/course/subject_stu.js');
 	
 }else if(currentUserType == 1){
@@ -53,3 +53,5 @@ if(typeof(tab_setting)!='undefined'){
 
 // open tab group
 mainTabGroup.open({opacity:1, duration:100})
+
+

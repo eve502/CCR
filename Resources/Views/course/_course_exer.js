@@ -28,7 +28,7 @@ var data_exam = [
 	]}
 ];
 
-var cur_page = 0; //当前题目
+var cur_page = 0; //当前页面
 var cur_level = 0; //当前测试级别
 var total_score = 0; //题目测试得分
 var result_list = []; //测试结果列表（对or错）
@@ -38,7 +38,6 @@ var data_level = [
 	{title:'中级篇',pass:false,done:false},
 	{title:'高级篇',pass:false,done:false},
 ];
-
 
 var viewExer = Ti.UI.createView({
 	width:720,
@@ -60,13 +59,12 @@ var label_exer = Ti.UI.createLabel({
 	borderRadius:20,
 	borderWidth:10,
 	borderColor:'#DFE2E7'
-});
-
+});	
 viewExer.add(label_exer);
 
 //页码
 var label_page = Ti.UI.createLabel({
-	text:(cur_page + 1) + '/' + data_exam.length,
+	text: + '1/' + data_exam.length,
 	top:0,
 	right:20,
 	width:700,
@@ -74,19 +72,10 @@ var label_page = Ti.UI.createLabel({
 	color:'#FFF',
 	font:{fontSize:32},
 	textAlign:'right'
-});
-
+});	
 viewExer.add(label_page);
 
-//题目内容显示区域
-var viewExerCont = Ti.UI.createView({
-	width:720,
-	height:860,
-	top:100,
-	zIndex:9,
-});
-viewExer.add(viewExerCont);
-
+//提示外包视图
 var tipsWrap = Ti.UI.createView({
 	width:720,
 	height:730,
@@ -115,10 +104,141 @@ var isWrong = Ti.UI.createImageView({
 tipsWrap.add(isWrong);
 
 
+//生成视图
+var views_len = data_exam.length;
+var scroll_views_data = [];
+
+for(i=0;i<views_len;i++){
+	//题目内容显示区域
+	var viewExerCont = Ti.UI.createView({
+		width:720,
+		height:720,
+		top:100,
+		backgroundColor:'#369',
+	});
+	
+	//跳过按钮
+	var pass_btn = Ti.UI.createButton({
+		title:L('pass'),
+		top:630,
+		width:300,
+		height:80,
+		borderRadius:20,
+		borderColor:'#DFE2E7',
+		borderWidth:2,
+		font:{fontSize:24}
+	});
+	viewExerCont.add(pass_btn);
+	
+	pass_btn.addEventListener('click',function(){
+		if(cur_page < (data_exam.length - 1)){
+			//进入下一个测试题目
+			cur_page++;
+			//createCurExam();
+		}else{
+			//进入测试结果页面
+			//createViewResult();
+		}
+	});		
+	
+	//当前页面问题描述
+	var exerWrap = Ti.UI.createView({
+		borderRadius:20,
+		borderWidth:10,
+		borderColor:'#DFE2E7',
+		width:720,
+		height:200,
+		top:0,
+		backgroundColor:'#FFF',
+	});	
+	viewExerCont.add(exerWrap);
+	
+	var label_question = Ti.UI.createLabel({
+		text:data_exam[i].question,
+		font:{fontSize:24}
+	});		
+	exerWrap.add(label_question);
+	
+	//当前页面题目选项按钮
+	var cur_answers = data_exam[i].answers; 
+	var cur_answers_len = cur_answers.length;  //Ti.API.info('cur_answers_len=' + cur_answers_len);
+
+	var title_list = [];
+	
+	for(j=0;j<cur_answers_len;j++)
+	{
+		//Ti.API.info('i=' + i);
+		var answer_btn = Ti.UI.createButton({
+			title:cur_answers[j].cont,
+			top:220 + j*100,
+			width:500,
+			height:90,
+			borderRadius:20,
+			borderColor:'#DFE2E7',
+			borderWidth:2,
+			font:{fontSize:24}
+		});	
+		viewExerCont.add(answer_btn);
+		
+		title_list.push(cur_answers[j].cont);
+		
+		//按钮事件
+		answer_btn.addEventListener('click',function(e){
+			var title = e.source.title;
+			var index = inArray(title,title_list);
+			
+			//Ti.API.info('index='+index);
+			
+			if(cur_answers[index].result){
+				var cur_score = data_exam[cur_page].score;
+				total_score += cur_score;
+				result_list.push(1);
+				showTips(isRight);
+			}else{
+				result_list.push(0);
+				showTips(isWrong);
+			}
+		});	
+		//Ti.API.info('title_list=' + title_list);
+	}
+	//添加到主视图
+	viewExer.add(viewExerCont);
+	scroll_views_data.push(viewExerCont);
+}
+//Ti.API.info(scroll_views_data);
+
+var scrollView = Titanium.UI.createScrollableView({
+	views:scroll_views_data,
+	showPagingControl:true,
+	pagingControlHeight:30,
+	maxZoomScale:2.0,
+	currentPage:0
+});
+viewExer.add(scrollView);
+
+
+var activeView = scroll_views_data[0];
+
+scrollView.addEventListener('scroll', function(e)
+{
+	activeView = e.view;  // the object handle to the view that is about to become visible
+	i = e.currentPage;
+	label_page.setText(i + 1 + '/' + data_exam.length);
+	Titanium.API.info("scroll called - current index " + i + ' active view ' + activeView);
+});
+scrollView.addEventListener('click', function(e)
+{
+	Ti.API.info('ScrollView received click event, source = ' + e.source);
+});
+scrollView.addEventListener('touchend', function(e)
+{
+	Ti.API.info('ScrollView received touchend event, source = ' + e.source);
+});
+
 
 
 //页面内容初始化
-createCurExam();
+//createCurExam();
 
 win.add(viewExer);
 

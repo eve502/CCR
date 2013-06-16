@@ -7,8 +7,9 @@ var A = new Analytics('app:subject');
 // A.featureEvent(e)  or  A.featureEvent(e, {somekey: somevalue, })
 
 
+//右侧窗口区域
 var win = Ti.UI.createWindow({
-	title:L('subject'),
+	title:L('course'),
 	backgroundColor:'#C0C6D1',
 });
 
@@ -62,11 +63,13 @@ for(i=0;i<subject_len;i++)
 		_parent:subject_navgroup,
 		Pwin:win,
 		Pmenu:main_menu_view,
-		url:subject_data[i].url,
+		url:subject_data[i].url,	
+		Ptabs:subject_navgroup,	
 	});
 	var subject_tab = Ti.UI.createTab({
 		title:subject_data[i].title,
-		window:tab_win
+		window:tab_win,
+		visible:false,
 	});
 	subject_navgroup.addTab(subject_tab);
 }
@@ -77,7 +80,6 @@ win.add(subject_navgroup);
 
 
 var rowData = [];
-
 
 //table footer
 var footer = Ti.UI.createView({
@@ -91,7 +93,13 @@ rowData[0] = section;
 
 for(i=0;i<subject_len;i++)
 {
-	section.add(Ti.UI.createTableViewRow({hasChild:subject_data[i].hasChild,title:subject_data[i].title,leftImage:subject_data[i].leftImage}));
+	section.add(
+		Ti.UI.createTableViewRow({
+			hasChild:subject_data[i].hasChild,
+			title:subject_data[i].title,
+			leftImage:subject_data[i].leftImage
+		})
+	);
 }
 
 

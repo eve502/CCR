@@ -3,41 +3,24 @@
  * user list page 
  */
 
-var win = Ti.UI.currentWindow;
-
-//Toolbar
-var label = Titanium.UI.createButton({
-	title:'班级成员',
-	color:'#fff',
-	style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN
-});
-
-var flexSpace = Titanium.UI.createButton({
-	systemButton:Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
-});
+//左侧关闭窗口的按钮
 var close = Titanium.UI.createButton({
-	title:'关闭',
+	title:'课程',
 	style:Titanium.UI.iPhone.SystemButtonStyle.DONE
 });
+win.setLeftNavButton(close);
 
 close.addEventListener('click', function()
 {
-	Ti.API.info('IN HERE');
-	win.close();
-});		
-
-// create and add toolbar
-var toolbar = Titanium.UI.iOS.createToolbar({
-	items:[flexSpace,label,flexSpace,close],
-	top:0,
-	borderTop:false,
-	borderBottom:true
-});
-win.add(toolbar);	
+	win._tabGroup.close();
+	win._parent.close();
+	win._parent._parent._parent._parent.show();
+});	
 
 
+//右上角按钮, 点击弹窗选择联系
 //班级成员列表
-var data = [
+var user_data = [
 	{title:'张子涵', header:'老师'},
 	{title:'王萧'},
 	{title:'李四'},
@@ -50,8 +33,30 @@ var data = [
 	];
 	
 var usr_list = Ti.UI.createTableView({
-	data:data,
-	top:43
+	data:user_data
 });
 
-win.add(usr_list);
+//班级成员列表弹窗
+var rightButton = Ti.UI.createButton({title: L('btn_close')});
+rightButton.addEventListener('click', function(e){
+    popover.hide();
+});
+
+var popover = Ti.UI.iPad.createPopover({
+    width: 300,
+    height: 400,
+    title: '班级成员',
+    rightNavButton: rightButton
+});
+popover.add(usr_list);	
+//
+var qusIcon = Titanium.UI.createButton({
+	systemButton:Titanium.UI.iPhone.SystemButton.INFO_DARK
+});
+qusIcon.addEventListener('click',function(){
+	popover.show({ view: qusIcon });
+});
+win.setRightNavButton(qusIcon);
+
+
+

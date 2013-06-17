@@ -40,7 +40,8 @@ course_sp.splitView_win = Titanium.UI.iPad.createSplitWindow({
 	showMasterInPortrait:true,	// popup or portrait
 });
 
-
+//设定course_sp.masterWindow的父级窗口
+course_sp.masterWindow._parent =  course_sp.splitView_win;
 
 Ti.App.addEventListener.addEventListener('app:rowClicked', function(e) {
     course_sp.splitView_win.setMasterPopupVisible(true);

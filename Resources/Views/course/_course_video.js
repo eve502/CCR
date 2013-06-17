@@ -2,14 +2,14 @@
  * 课程视频页
  */
 
-tb1.setIndex(0); 
+//tb1.setIndex(0); \
 
-var viewVideo = Ti.UI.createView({
-	width:720,
-	height:850,
-	top:60
-});
-win.add(viewVideo);
+var win = Ti.UI.currentWindow;
+//win closed flag
+var windowClosed = false;
+
+//navBar左侧关闭按钮, 和右侧用户列表弹窗
+Ti.include('/Views/userinfo/_usr_list.js');
 
 var videoWrap = Ti.UI.createView({
 	borderRadius:10,
@@ -18,7 +18,7 @@ var videoWrap = Ti.UI.createView({
 	height:520,
 	top:10
 });
-viewVideo.add(videoWrap);
+win.add(videoWrap);
 
 var activeMovie = Titanium.Media.createVideoPlayer({
 	url:'/movies/movie.mp4',
@@ -30,7 +30,6 @@ var activeMovie = Titanium.Media.createVideoPlayer({
 	top:10,
 	autoplay:false
 });
-
 videoWrap.add(activeMovie);
 
 
@@ -42,7 +41,7 @@ var labelTitle = Ti.UI.createLabel({
 	height:40,
 	font:{fontSize:24},
 });
-viewVideo.add(labelTitle);
+win.add(labelTitle);
 
 
 //课程内容简介
@@ -54,7 +53,7 @@ var labelCont = Ti.UI.createLabel({
 	width:720,
 });
 
-viewVideo.add(labelCont);
+win.add(labelCont);
 
 
 activeMovie.addEventListener('load',function()
@@ -70,12 +69,31 @@ activeMovie.addEventListener('load',function()
 });
 activeMovie.addEventListener('complete',function()
 {	
-	if (!windowClosed)
-	{
+	//if (!windowClosed)
+	//{
 		Ti.API.debug('Completed!');
+		//win._tabGroup.close();
 		//var dlg = Titanium.UI.createAlertDialog({title:'Movie', message:'Completed!'});
 		//dlg.show();
-	}
+	//}
 });
 
 activeMovie.play();
+
+
+if(!Ti.UI.currentTab.active){
+	//windowClosed = true;
+	activeMovie.stop();
+}
+
+
+//当前窗口关闭事件
+win.addEventListener('close', function()
+{
+	if (!windowClosed)
+	{
+		windowClosed = true;
+		activeMovie.stop();
+	}
+});
+

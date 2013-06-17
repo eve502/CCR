@@ -2,6 +2,22 @@
  * 课程练习页
  */
 
+var win = Ti.UI.currentWindow;
+
+//navBar左侧关闭按钮, 和右侧用户列表弹窗
+Ti.include('/Views/userinfo/_usr_list.js');
+
+var cur_page = 0; //当前页面
+var cur_level = 0; //当前测试级别
+var total_score = 0; //题目测试得分
+var result_list = []; //测试结果列表（对or错）
+
+var level_data = [
+	{title:'初级篇',pass:false,done:false},
+	{title:'中级篇',pass:false,done:false},
+	{title:'高级篇',pass:false,done:false},
+];
+
 var data_exam = [
 	{id:1,score:25,question:'1.买一个本子要8元，有6元4角，还差多少钱？', answers:[
 		{cont:'1元6角',result:true},
@@ -28,27 +44,9 @@ var data_exam = [
 	]}
 ];
 
-var cur_page = 0; //当前页面
-var cur_level = 0; //当前测试级别
-var total_score = 0; //题目测试得分
-var result_list = []; //测试结果列表（对or错）
-
-var data_level = [
-	{title:'初级篇',pass:false,done:false},
-	{title:'中级篇',pass:false,done:false},
-	{title:'高级篇',pass:false,done:false},
-];
-
-var viewExer = Ti.UI.createView({
-	width:720,
-	height:880,
-	top:60,
-	visible:false,
-});
-
 //课堂标题
 var label_exer = Ti.UI.createLabel({
-	text:'    课堂练习 - ' + data_level[cur_level].title,
+	text:'    课堂练习 - ' + level_data[cur_level].title,
 	top:0,
 	width:720,
 	height:80,
@@ -60,7 +58,7 @@ var label_exer = Ti.UI.createLabel({
 	borderWidth:10,
 	borderColor:'#DFE2E7'
 });	
-viewExer.add(label_exer);
+win.add(label_exer);
 
 //页码
 var label_page = Ti.UI.createLabel({
@@ -73,7 +71,7 @@ var label_page = Ti.UI.createLabel({
 	font:{fontSize:32},
 	textAlign:'right'
 });	
-viewExer.add(label_page);
+win.add(label_page);
 
 //提示外包视图
 var tipsWrap = Ti.UI.createView({
@@ -83,7 +81,8 @@ var tipsWrap = Ti.UI.createView({
 	zIndex:10,
 	visible:false,
 });
-viewExer.add(tipsWrap);
+win.add(tipsWrap);
+
 
 //答对提示
 var isRight = Ti.UI.createImageView({
@@ -91,7 +90,6 @@ var isRight = Ti.UI.createImageView({
 	visible:false,
 	zIndex:11
 });
-
 tipsWrap.add(isRight);
 
 //答错提示
@@ -100,7 +98,6 @@ var isWrong = Ti.UI.createImageView({
 	visible:false,
 	zIndex:11
 });
-
 tipsWrap.add(isWrong);
 
 
@@ -161,7 +158,7 @@ for(i=0;i<views_len;i++){
 	
 	//当前页面题目选项按钮
 	var cur_answers = data_exam[i].answers; 
-	var cur_answers_len = cur_answers.length;  //Ti.API.info('cur_answers_len=' + cur_answers_len);
+	var cur_answers_len = cur_answers.length;
 
 	var title_list = [];
 	
@@ -187,8 +184,6 @@ for(i=0;i<views_len;i++){
 			var title = e.source.title;
 			var index = inArray(title,title_list);
 			
-			//Ti.API.info('index='+index);
-			
 			if(cur_answers[index].result){
 				var cur_score = data_exam[cur_page].score;
 				total_score += cur_score;
@@ -198,11 +193,8 @@ for(i=0;i<views_len;i++){
 				result_list.push(0);
 				showTips(isWrong);
 			}
-		});	
-		//Ti.API.info('title_list=' + title_list);
+		});
 	}
-	//添加到主视图
-	viewExer.add(viewExerCont);
 	scroll_views_data.push(viewExerCont);
 }
 //Ti.API.info(scroll_views_data);
@@ -214,7 +206,7 @@ var scrollView = Titanium.UI.createScrollableView({
 	maxZoomScale:2.0,
 	currentPage:0
 });
-viewExer.add(scrollView);
+win.add(scrollView);
 
 
 var activeView = scroll_views_data[0];
@@ -240,8 +232,6 @@ scrollView.addEventListener('touchend', function(e)
 //页面内容初始化
 //createCurExam();
 
-win.add(viewExer);
-
 
 function showTips(obj)
 {
@@ -254,10 +244,13 @@ function showTips(obj)
 	},500);
 }
 
+
+
+/*
 function createViewResult()
 {
 	label_page.text = ''; //清除页码标志	
-	data_level[cur_level].done = true; //标志本套测试已经做过
+	level_data[cur_level].done = true; //标志本套测试已经做过
 	emptyAllChildren(viewExerCont);
 	
 	//查看测试结果按钮
@@ -292,7 +285,7 @@ function createViewResult()
 	
 	viewExerCont.add(retestBtn);
 	retestBtn.addEventListener('click',function(){
-		data_level[cur_level].done = false;
+		level_data[cur_level].done = false;
 		cur_page = 0;
 		total_score = 0;
 		createCurExam();
@@ -326,7 +319,7 @@ function createViewResult()
 	
 	if(total_score >= 80){
 		var exam_result = total_score + '分，恭喜您！可以进入下一轮测试啦！ 可点击“下一轮测试”开始。';
-		data_level[cur_level].pass = true;
+		level_data[cur_level].pass = true;
 		nextBtn.show();
 	}else{
 		var exam_result = total_score + '分，继续努力，达到80分就可以进入下一轮测试喽！';
@@ -363,7 +356,7 @@ function createResultList()
 	viewExerCont.add(retestBtn2);
 	retestBtn2.addEventListener('click',function(){
 		Ti.API.info('retest2');
-		data_level[cur_level].done = false;
+		level_data[cur_level].done = false;
 		cur_page = 0;
 		total_score = 0;
 		createCurExam();
@@ -397,7 +390,7 @@ function createCurExam()
 {	
 	emptyAllChildren(viewExerCont);	//清空viewExerCont的内容
 	
-	if(data_level[cur_level].done){
+	if(level_data[cur_level].done){
 		label_page.text = ''; 
 		
 		//学习帮助按钮
@@ -411,7 +404,7 @@ function createCurExam()
 			borderWidth:2,
 			font:{fontSize:24}
 		});
-		viewExer.add(help_btn);
+		win.add(help_btn);
 		
 		help_btn.addEventListener('click',function(){
 			sHelp_sid = data_exam[cur_page].id; //单一题目id
@@ -493,7 +486,7 @@ function createCurExam()
 		
 		title_list.push(cur_answers[i].cont);
 		
-		if(!data_level[cur_level].done){
+		if(!level_data[cur_level].done){
 			//按钮事件
 			answer_btn.addEventListener('click',function(e){
 				var title = e.source.title;
@@ -525,6 +518,8 @@ function createCurExam()
 		}		
 	}
 }
+
+*/
 
 
 

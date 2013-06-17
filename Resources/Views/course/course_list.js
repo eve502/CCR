@@ -10,6 +10,17 @@
 
 var Win = Ti.UI.currentWindow;
 
+/*
+Win.addEventListener('click',function(){
+	Ti.API.info('this is course_list Win');
+});
+
+Win._parent.addEventListener('click',function(){
+	Ti.API.info('this is splitWindow');
+});
+
+*/
+
 // 
 var _course_data = [
 	{title:"第一章 加减法", hasChild:true},
@@ -56,8 +67,11 @@ menu_list_tb.addEventListener('click', function(e){
 			url:"/Views/course/course_detail.js",
 			navBarHidden:false,
 			title:e.rowData.title,
-			backgroundColor:'#FFF',
+			_parent:Win,
+			//backgroundColor:'#FFF',
 		});
+		//隐藏splitWindow
+		Win._parent.hide();
 		//打开窗口
 		w.open({animated:true});
 		

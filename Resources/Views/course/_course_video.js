@@ -16,7 +16,8 @@ var videoWrap = Ti.UI.createView({
 	borderColor:'#336699',
 	width:720,
 	height:520,
-	top:10
+	top:10,
+	backgroundColor:'#fff',
 });
 win.add(videoWrap);
 
@@ -80,11 +81,17 @@ activeMovie.addEventListener('complete',function()
 
 activeMovie.play();
 
+//
+win.addEventListener('focus',function(){
+	windowClosed = false;
+	activeMovie.play();
+});
 
-if(!Ti.UI.currentTab.active){
-	//windowClosed = true;
+//
+win.addEventListener('blur',function(){
+	windowClosed = true;
 	activeMovie.stop();
-}
+});
 
 
 //当前窗口关闭事件

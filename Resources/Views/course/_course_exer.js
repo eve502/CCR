@@ -47,7 +47,7 @@ var data_exam = [
 //课堂标题
 var label_exer = Ti.UI.createLabel({
 	text:'    课堂练习 - ' + level_data[cur_level].title,
-	top:0,
+	top:10,
 	width:720,
 	height:80,
 	font:{fontSize:24},
@@ -56,14 +56,14 @@ var label_exer = Ti.UI.createLabel({
 	backgroundColor:'#369',
 	borderRadius:20,
 	borderWidth:10,
-	borderColor:'#DFE2E7'
+	borderColor:'#CCC'
 });	
 win.add(label_exer);
 
 //页码
 var label_page = Ti.UI.createLabel({
-	text: + '1/' + data_exam.length,
-	top:0,
+	text: + '1/' + data_exam.length + '    ',
+	top:10,
 	right:20,
 	width:700,
 	height:80,
@@ -77,7 +77,7 @@ win.add(label_page);
 var tipsWrap = Ti.UI.createView({
 	width:720,
 	height:730,
-	top:100,
+	top:110,
 	zIndex:10,
 	visible:false,
 });
@@ -110,18 +110,17 @@ for(i=0;i<views_len;i++){
 	var viewExerCont = Ti.UI.createView({
 		width:720,
 		height:720,
-		top:100,
-		backgroundColor:'#369',
+		top:110,
 	});
 	
 	//跳过按钮
 	var pass_btn = Ti.UI.createButton({
 		title:L('pass'),
-		top:630,
+		top:640,
 		width:300,
 		height:80,
 		borderRadius:20,
-		borderColor:'#DFE2E7',
+		borderColor:'#CCC',
 		borderWidth:2,
 		font:{fontSize:24}
 	});
@@ -142,7 +141,7 @@ for(i=0;i<views_len;i++){
 	var exerWrap = Ti.UI.createView({
 		borderRadius:20,
 		borderWidth:10,
-		borderColor:'#DFE2E7',
+		borderColor:'#CCC',
 		width:720,
 		height:200,
 		top:0,
@@ -167,11 +166,11 @@ for(i=0;i<views_len;i++){
 		//Ti.API.info('i=' + i);
 		var answer_btn = Ti.UI.createButton({
 			title:cur_answers[j].cont,
-			top:220 + j*100,
+			top:230 + j*100,
 			width:500,
 			height:90,
 			borderRadius:20,
-			borderColor:'#DFE2E7',
+			borderColor:'#CCC',
 			borderWidth:2,
 			font:{fontSize:24}
 		});	
@@ -226,11 +225,6 @@ scrollView.addEventListener('touchend', function(e)
 {
 	Ti.API.info('ScrollView received touchend event, source = ' + e.source);
 });
-
-
-
-//页面内容初始化
-//createCurExam();
 
 
 function showTips(obj)

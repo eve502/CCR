@@ -28,8 +28,8 @@
 "course_det" = "课程内容";
 "course_exer" = "课程练习";
 "course_help" = "学习帮助";
-"my_knowledge" = "我的知识";
 "answer_det" = "答题情况";
+"my_knowledge" = "个人信息";
 "tab_course" = "课程";
 "tab_mentor" = "导师";
 "tab_favor" = "收藏";

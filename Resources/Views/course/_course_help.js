@@ -5,6 +5,9 @@
 
 var win = Ti.UI.currentWindow;
 
+//navBar左侧关闭按钮, 和右侧用户列表弹窗
+Ti.include('/Views/userinfo/_usr_list.js');
+
 var data_sHelp = [
 	{sid:1,question:'1.买一个本子要8元，有6元4角，还差多少钱？', cont:[
 		{user_id:1,user_name:'王晓晓',answer:'8 - 6.4 = 1.6(元)'},
@@ -27,13 +30,6 @@ var tb_sHelp_data = [];
 var tb_mHelp_data = [];
 
 
-var viewHelp = Ti.UI.createView({
-	width:720,
-	height:850,
-	top:60,
-	visible:false
-});
-
 /*
  * 单一问题帮助View
  */
@@ -42,7 +38,7 @@ var singleHelpView = Ti.UI.createView({
 	width:720,
 	height:850
 }); 
-viewHelp.add(singleHelpView);
+win.add(singleHelpView);
 
 //单题帮助的表格初始化
 //initSHelpTable();
@@ -55,7 +51,7 @@ var multiHelpView = Ti.UI.createView({
 	width:720,
 	height:850
 });
-viewHelp.add(multiHelpView);
+win.add(multiHelpView);
 
 //多题帮助的表格初始化
 initMHelpTable();
@@ -68,12 +64,8 @@ var answerView = Ti.UI.createView({
 	width:720,
 	height:850
 });
-viewHelp.add(answerView);
+win.add(answerView);
 
-
-
-
-win.add(viewHelp);
 
 function initAnswerCont(aid)
 {
@@ -144,7 +136,7 @@ function initMHelpTable()
 	
 	//搜索框
 	var help_search = Titanium.UI.createSearchBar({
-		barColor:'#FFF',
+		barColor:'#DFE2E7',
 		showCancel:false,
 		hintText:'search',
 	});
@@ -152,7 +144,7 @@ function initMHelpTable()
 	var mHelpList = Ti.UI.createTableView({
 		data:tb_mHelp_data,
 		style: Titanium.UI.iPhone.TableViewStyle.GROUPED,
-		backgroundColor:'#FFF',
+		backgroundColor:'transparent',
 		search:help_search,
 		//filterAtribute:'filter'
 	});
@@ -177,7 +169,8 @@ function createMHelpTableRow()
 		var row = Ti.UI.createTableViewRow({
 			hasChild:true,
 			height:60,
-			title:'          '+data_sHelp[j].question
+			title:'          '+data_sHelp[j].question,
+			backgroundColor:'#fff',
 		});
 		
 		//题号

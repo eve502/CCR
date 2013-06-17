@@ -57,7 +57,6 @@ menu_list_tb.addEventListener('click', function(e){
 		A.featureEvent(e);
 		
 		Win.sp_win.detailNav.open(win,{animated:false});
-		//Titanium.UI.currentTab.open(win,{animated:true});
 	}
 });
 

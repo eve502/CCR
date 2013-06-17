@@ -16,7 +16,7 @@ var course_sp = {};
 course_sp.masterWindow = Ti.UI.createWindow({
     title:L('subject'),
     backgroundColor: 'transparent',
-    url:'/Views/course/subject_list.js',
+    url:'/Views/select/subject_list.js',
 });
 
 // 右侧 内容区

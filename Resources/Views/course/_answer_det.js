@@ -4,22 +4,18 @@
 
 var win = Ti.UI.currentWindow;
 
+//navBar左侧关闭按钮, 和右侧用户列表弹窗
+Ti.include('/Views/userinfo/_usr_list.js');
+
+var tb_test_data = [];
+var which_row = 0;
+
 var test_data=[
 	{title:'张小小',level:0, comment_id:0,process:'80%'},
 	{title:'李大大',level:1, comment_id:2,process:'50%'},
 	{title:'张小小',level:0, comment_id:1,process:'80%'},
 	{title:'张涵韵',level:2, comment_id:0,process:'70%'}
 ];
-
-var tb_test_data = [];
-var which_row = 0;
-
-var viewTestResult = Ti.UI.createView({
-	width:720,
-	height:850,
-	top:60,
-	visible:false
-});
 
 var comments = ['做得不错', '继续努力', '多加认真会更好'];
 //评语选项
@@ -47,7 +43,6 @@ initRowData(); //初始化表格row数据
 var test_list = Ti.UI.createTableView({
 	data:tb_test_data,	
 	style: Titanium.UI.iPhone.TableViewStyle.GROUPED,
-	backgroundColor:'#FFF',
 });
 
 //列表事件
@@ -57,10 +52,8 @@ test_list.addEventListener('click',function(e){
 	comment_dialog.show();
 });
 
+win.add(test_list);
 
-viewTestResult.add(test_list);
-
-win.add(viewTestResult);
 
 function initRowData()
 {
@@ -68,7 +61,9 @@ function initRowData()
 	var test_len = test_data.length;
 	for(i=0;i<test_len;i++)
 	{
-		var row = Ti.UI.createTableViewRow();
+		var row = Ti.UI.createTableViewRow({
+			backgroundColor:'#fff',
+		});
 		row.height = 70;
 		switch(test_data[i].level)
 		{

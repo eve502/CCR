@@ -49,6 +49,7 @@ menu_list_tb.addEventListener('click', function(e){
 			url:e.rowData.url,
 			title:e.rowData.title,
 			leftNavButton:btn_none,
+			_parent:Win._parent,
 		});
 		Ti.App.Properties.setInt('active_item_index', e.index);
 		

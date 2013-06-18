@@ -30,6 +30,8 @@
 "course_help" = "学习帮助";
 "answer_det" = "答题情况";
 "my_knowledge" = "个人信息";
+"answer" = "问题解答";
+"answers" = "答题帮助";
 "tab_course" = "课程";
 "tab_mentor" = "导师";
 "tab_favor" = "收藏";

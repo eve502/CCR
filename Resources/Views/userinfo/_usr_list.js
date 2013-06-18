@@ -5,7 +5,7 @@
 
 //左侧关闭窗口的按钮
 var close = Titanium.UI.createButton({
-	title:'课程',
+	title:win._parent.title,
 	style:Titanium.UI.iPhone.SystemButtonStyle.DONE
 });
 win.setLeftNavButton(close);

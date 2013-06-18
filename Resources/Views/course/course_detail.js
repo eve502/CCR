@@ -20,11 +20,11 @@ var win = Ti.UI.createWindow({
  * 当前窗口TabGroup
  */
 var c_tab_data = [
-	{title:L('course_det'),url:'/Views/course/_course_video.js',icon:'/images/tabs/KS_nav_ui.png'},
-	{title:L('course_exer'),url:'/Views/course/_course_exer.js',icon:'/images/tabs/KS_nav_phone.png'},
-	{title:L('course_help'),url:'/Views/course/_course_help.js',icon:'/images/tabs/KS_nav_platform.png'},
-	{title:L('answer_det'),url:'/Views/course/_answer_det.js',icon:'/images/icon/ico_cloud.png'},
-	{title:L('my_knowledge'),url:'/Views/course/_my_knowledge.js',icon:'/images/tabs/KS_nav_mashup.png'},
+	{title:L('course_det'),url:'/Views/course/course_video.js',icon:'/images/tabs/KS_nav_ui.png'},
+	{title:L('course_exer'),url:'/Views/course/course_exer.js',icon:'/images/tabs/KS_nav_phone.png'},
+	{title:L('course_help'),url:'/Views/course/course_help.js',icon:'/images/tabs/KS_nav_platform.png'},
+	{title:L('answer_det'),url:'/Views/course/answer_det.js',icon:'/images/icon/ico_cloud.png'},
+	{title:L('my_knowledge'),url:'/Views/course/message.js',icon:'/images/tabs/KS_nav_mashup.png'},
 ];
 
 var detailTabGroup = Ti.UI.createTabGroup();
@@ -33,7 +33,7 @@ var tabs_len = c_tab_data.length;
 for(i=0;i<tabs_len;i++){
 	//窗口
 	var c_tab_win = Ti.UI.createWindow({
-		title:cur_win.title,
+		title:c_tab_data[i].title,
 		url:c_tab_data[i].url,
 		_parent:win,
 		_tabGroup:detailTabGroup,

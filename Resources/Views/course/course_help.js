@@ -5,34 +5,27 @@
 
 var win = Ti.UI.currentWindow;
 
+
+var help_type = 0; // 0 - 默认是多题帮助, 1 - 单题帮助
+
 //navBar左侧关闭按钮, 和右侧用户列表弹窗
 Ti.include('/Views/userinfo/_usr_list.js');
 
-var data_sHelp = [
-	{sid:1,question:'1.买一个本子要8元，有6元4角，还差多少钱？', cont:[
-		{user_id:1,user_name:'王晓晓',answer:'8 - 6.4 = 1.6(元)'},
-		{user_id:2,user_name:'李大大',answer:'8元减去6.4元等于1.6元'},
-		{user_id:3,user_name:'张黑黑',answer:'8元减去6.4元等于1.6元，即1元6角'},
-	]},
-	{sid:2,question:'2.买一个本子要8元，有6元4角，还差多少钱？', cont:[
-		{user_id:1,user_name:'王晓晓',answer:'8 - 6.4 = 1.6(元)'},
-		{user_id:2,user_name:'张黑黑',answer:'8元减去6.4元等于1.6元'},
-		{user_id:3,user_name:'李大大',answer:'8元减去6.4元等于1.6元，即1元6角'},
-	]},
-	{sid:3,question:'3.买一个本子要8元，有6元4角，还差多少钱？', cont:[
-		{user_id:1,user_name:'王晓晓',answer:'8 - 6.4 = 1.6(元)'},
-		{user_id:2,user_name:'王力宏',answer:'8元减去6.4元等于1.6元'},
-		{user_id:3,user_name:'林志颖',answer:'8元减去6.4元等于1.6元，即1元6角'},
-	]}
-];
+if(help_type == 0){
+	Ti.include('/Views/course/_m_help.js');
+}else{
+	Ti.include('/Views/course/_s_help.js');
+}
+
+
+
+/*
 
 var tb_sHelp_data = [];
 var tb_mHelp_data = [];
 
 
-/*
- * 单一问题帮助View
- */
+//
 var singleHelpView = Ti.UI.createView({
 	visible:false,
 	width:720,
@@ -40,12 +33,8 @@ var singleHelpView = Ti.UI.createView({
 }); 
 win.add(singleHelpView);
 
-//单题帮助的表格初始化
-//initSHelpTable();
 
-/*
- * 多问题帮助列表
- */
+//
 var multiHelpView = Ti.UI.createView({
 	visible:true,
 	width:720,
@@ -56,9 +45,7 @@ win.add(multiHelpView);
 //多题帮助的表格初始化
 initMHelpTable();
 
-/*
- * 解答详情页
- */
+//
 var answerView = Ti.UI.createView({
 	visible:false,
 	width:720,
@@ -101,7 +88,7 @@ function initAnswerCont(aid)
 	
 	//问题题目
 	var qusTitle = Ti.UI.createLabel({
-		text:data_sHelp[sHelp_sid_index].question,
+		text:help_data[sHelp_sid_index].question,
 		font:{fontSize:20},
 		height:100,
 	});
@@ -120,7 +107,7 @@ function initAnswerCont(aid)
 	
 	//回答内容
 	var answerCont = Ti.UI.createLabel({
-		text:data_sHelp[sHelp_sid_index].cont[aid].answer,
+		text:help_data[sHelp_sid_index].cont[aid].answer,
 		font:{fontSize:20},
 		top:20,
 		left:20
@@ -152,7 +139,7 @@ function initMHelpTable()
 	
 	mHelpList.addEventListener('click',function(e){
 		//Ti.API.info('e.index=' + e.index);
-		sHelp_sid = data_sHelp[e.index].sid;
+		sHelp_sid = help_data[e.index].sid;
 		multiHelpView.hide();
 		singleHelpView.show();
 		answerView.hide();
@@ -162,20 +149,20 @@ function initMHelpTable()
 
 function createMHelpTableRow()
 {
-	var mHelpList_len = data_sHelp.length;
+	var mHelpList_len = help_data.length;
 	
 	for(j=0;j<mHelpList_len;j++)
 	{
 		var row = Ti.UI.createTableViewRow({
 			hasChild:true,
 			height:60,
-			title:'          '+data_sHelp[j].question,
+			title:'          '+help_data[j].question,
 			backgroundColor:'#fff',
 		});
 		
 		//题号
 		var sNum = Ti.UI.createLabel({
-			text:data_sHelp[j].sid,
+			text:help_data[j].sid,
 			width:40,
 			height:40,
 			top:10,
@@ -195,11 +182,9 @@ function createMHelpTableRow()
 }
 
 function initSHelpTable()
-{
-	emptyAllChildren(singleHelpView);  //清空singleHelpView的内容
-	
-	var sHelp_sid_index = getArrayIndex(sHelp_sid); //题目id所对应的data_sHelp的数据.
-	
+{	
+	var sHelp_sid_index = getArrayIndex(sHelp_sid); //题目id所对应的help_data的数据.
+		
 	//当前问题描述wrap
 	var singleHelpWrap = Ti.UI.createView({
 		borderRadius:20,
@@ -237,7 +222,7 @@ function initSHelpTable()
 	if(sHelp_sid_index == -1){
 		singleTitle.setText("暂无数据,可联系老师寻求帮助.");
 	}else{
-		singleTitle.setText(data_sHelp[sHelp_sid_index].question);
+		singleTitle.setText(help_data[sHelp_sid_index].question);
 		//初始化表格行数据(单题)
 		createSHelpTableRow();
 		//单题帮助信息列表
@@ -260,8 +245,8 @@ function initSHelpTable()
 
 function createSHelpTableRow()
 {
-	var sHelp_sid_index = getArrayIndex(sHelp_sid); //题目id所对应的data_sHelp的数据.
-	var sHelpList_len = data_sHelp[sHelp_sid_index].cont.length;
+	var sHelp_sid_index = getArrayIndex(sHelp_sid); //题目id所对应的help_data的数据.
+	var sHelpList_len = help_data[sHelp_sid_index].cont.length;
 	
 	for(i=0;i<sHelpList_len;i++)
 	{
@@ -285,7 +270,7 @@ function createSHelpTableRow()
 		
 		//用户名
 		var userNameLabel = Ti.UI.createLabel({
-			text:data_sHelp[sHelp_sid_index].cont[i].user_name,
+			text:help_data[sHelp_sid_index].cont[i].user_name,
 			top:60,
 			left:10,
 			font:{fontSize:14},
@@ -295,9 +280,9 @@ function createSHelpTableRow()
 		row.add(userNameLabel);
 		
 		//解答描述
-		var row_text = data_sHelp[sHelp_sid_index].cont[i].answer;  Ti.API.info(row_text.length);
+		var row_text = help_data[sHelp_sid_index].cont[i].answer;  Ti.API.info(row_text.length);
 		if(row_text.length > 10)
-			row_text =  data_sHelp[sHelp_sid_index].cont[i].answer.substr(0,10) + '...';
+			row_text =  help_data[sHelp_sid_index].cont[i].answer.substr(0,10) + '...';
 		
 		var sAnswerLabel = Ti.UI.createLabel({
 			text:row_text,
@@ -314,16 +299,18 @@ function createSHelpTableRow()
 // 查找数组中的某条数据,返回对应的index
 function getArrayIndex(sid)
 {
-	var data_sHelp_len = data_sHelp.length;
+	var help_data_len = help_data.length;
 	var index = -1;
-	for(i=0;i<data_sHelp_len;i++)
+	for(i=0;i<help_data_len;i++)
 	{
-		if(data_sHelp[i].sid == sid){
+		if(help_data[i].sid == sid){
 			index = i;break;
 		}
 	}
 	return index;
 }
+
+*/
 
 
 

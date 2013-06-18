@@ -1,0 +1,1 @@
+/Users/eve/Workspace/Apple/CCR/Resources/Views/course/message.js

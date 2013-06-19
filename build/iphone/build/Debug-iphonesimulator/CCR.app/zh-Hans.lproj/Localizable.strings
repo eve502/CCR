@@ -22,6 +22,7 @@
 "select_comment" = "选择评语";
 "return_help_list" = "返回帮助首页";
 "return" = "返回";
+"send" = "发送";
 "course" = "课程";
 "subject" = "科目";
 "setting" = "设置";
@@ -29,7 +30,7 @@
 "course_exer" = "课程练习";
 "course_help" = "学习帮助";
 "answer_det" = "答题情况";
-"my_knowledge" = "个人信息";
+"my_knowledge" = "我的信息";
 "answer" = "问题解答";
 "answers" = "答题帮助";
 "tab_course" = "课程";

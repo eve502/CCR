@@ -22,6 +22,7 @@
 "select_comment" = "select comment";
 "return_help_list" = "return help list";
 "return" = "return";
+"send" = "send";
 "course" = "course";
 "subject" = "subject";
 "setting" = "setting";

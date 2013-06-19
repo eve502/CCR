@@ -32,8 +32,50 @@ var user_data = [
 	{title:'艾晓静'}
 	];
 	
-var usr_list = Ti.UI.createTableView({
+var userTable = Ti.UI.createTableView({
 	data:user_data
+});
+//点击用户,打开发送消息窗口
+userTable.addEventListener('click',function(e){
+	var index = e.index;
+	
+	var t = Titanium.UI.create2DMatrix();
+	t = t.scale(0);
+	
+	var w = Titanium.UI.createWindow({
+		title:e.rowData.title,
+		backgroundColor:'#FFF',
+		url:'/Views/message/send_msg.js',
+		height:400,
+		width:620,
+		transform:t,
+		borderWidth:2,
+		borderColor:'#999',
+		borderRadius: 8,
+	});
+	
+	// create first transform to go beyond normal size
+	var t1 = Titanium.UI.create2DMatrix();
+	t1 = t1.scale(1.1);
+	var a = Titanium.UI.createAnimation();
+	a.transform = t1;
+	a.duration = 200;
+	
+	// when this animation completes, scale to normal size
+	a.addEventListener('complete', function()
+	{
+		Titanium.API.info('here in complete');
+		var t2 = Titanium.UI.create2DMatrix();
+		t2 = t2.scale(1.0);
+		w.animate({transform:t2, duration:200});
+
+	});
+	
+	//关闭用户列表窗口
+	popover.hide();
+		
+	//打开发送消息窗口
+	w.open(a);
 });
 
 //班级成员列表弹窗
@@ -48,7 +90,7 @@ var popover = Ti.UI.iPad.createPopover({
     title: '班级成员',
     rightNavButton: rightButton
 });
-popover.add(usr_list);	
+popover.add(userTable);	
 //
 var qusIcon = Titanium.UI.createButton({
 	systemButton:Titanium.UI.iPhone.SystemButton.INFO_DARK

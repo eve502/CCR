@@ -28,6 +28,8 @@
 	<string name="course">课程</string>
 	<string name="subject">科目</string>
 	<string name="setting">设置</string>
+	<string name="account">账号</string>
+	<string name="feedback">反馈</string>
 	
 	<string name="course_det">课程内容</string>
 	<string name="course_exer">课程练习</string>

@@ -39,24 +39,24 @@ if(s_help_len < 1){
 }else{
 	singleTitle.text = s_help_data[0].question;
 	//帮助条数
-	var s_help_len = s_help_data[0].cont.length;	
+	var s_help_len = s_help_data[0].cont.length;
 	//初始化表格行数据
 	for(i=0;i<s_help_len;i++)
 	{
 		var row = Ti.UI.createTableViewRow({
 			hasChild:true,
-			height:85,
+			height:90,
 			backgroundColor:'#fff',
 		});	
 		
 		//用户头像
 		var avatar = Ti.UI.createImageView({
 			image:s_help_data[0].cont[i].avatar,
-			width:50,
-			height:50,
+			width:60,
+			height:60,
 			top:5,
 			left:10,
-			borderRadius:10,
+			borderRadius:30,
 			borderWidth:2,
 			borderColor:'#DFE2E7',
 		}); 
@@ -65,10 +65,10 @@ if(s_help_len < 1){
 		//用户名
 		var userNameLabel = Ti.UI.createLabel({
 			text:s_help_data[0].cont[i].user_name,
-			top:60,
+			top:65,
 			left:10,
 			font:{fontSize:14},
-			width:50,
+			width:60,
 			textAlign:'center'
 		});
 		row.add(userNameLabel);
@@ -81,7 +81,7 @@ if(s_help_len < 1){
 		var sAnswerLabel = Ti.UI.createLabel({
 			text:row_text,
 			top:20,
-			left:70
+			left:80
 		});
 		row.add(sAnswerLabel);
 		

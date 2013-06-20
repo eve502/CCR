@@ -26,6 +26,8 @@
 "course" = "课程";
 "subject" = "科目";
 "setting" = "设置";
+"account" = "账号";
+"feedback" = "反馈";
 "course_det" = "课程内容";
 "course_exer" = "课程练习";
 "course_help" = "学习帮助";

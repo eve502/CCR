@@ -26,6 +26,8 @@
 "course" = "course";
 "subject" = "subject";
 "setting" = "setting";
+"account" = "account";
+"feedback" = "feedback";
 "course_det" = "course";
 "course_exer" = "examination";
 "knowledge_share" = "share";

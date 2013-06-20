@@ -38,11 +38,11 @@ for(i=0;i<msg_len;i++)
 	//用户头像
 	var avatar = Ti.UI.createImageView({
 		image:msg_data[i].avatar,
-		width:50,
-		height:50,
+		width:60,
+		height:60,
 		top:5,
 		left:10,
-		borderRadius:10,
+		borderRadius:30,
 		borderWidth:2,
 		borderColor:'#DFE2E7',
 	}); 
@@ -51,10 +51,10 @@ for(i=0;i<msg_len;i++)
 	//用户名
 	var userNameLabel = Ti.UI.createLabel({
 		text:msg_data[i].user_name,
-		top:60,
+		top:65,
 		left:10,
 		font:{fontSize:14},
-		width:50,
+		width:60,
 		height:30,
 		textAlign:'center'
 	});
@@ -64,19 +64,19 @@ for(i=0;i<msg_len;i++)
 	var msgLabel = Ti.UI.createLabel({
 		text:msg_data[i].message,
 		top:20,
-		width:630,
+		width:600,
 		height:'auto',
-		left:70,
+		left:80,
 	});
 	row.add(msgLabel);
 	
 	if(msg_data[i].orig_msg != ''){
 		var oMsgLabel = Ti.UI.createLabel({
-			text:' 回复: ' + msg_data[i].orig_msg,
+			text:'回复: ' + msg_data[i].orig_msg,
 			top:60,
-			width:630,
+			width:600,
 			height:'auto',
-			left:70,
+			left:80,
 			backgroundColor:'#DFE2E7',
 			borderRadius:5,
 		});

@@ -27,6 +27,8 @@
 	<string name="course">course</string>
 	<string name="subject">subject</string>
 	<string name="setting">setting</string>
+	<string name="account">account</string>
+	<string name="feedback">feedback</string>
 
 	<string name="course_det">course</string>
 	<string name="course_exer">examination</string>

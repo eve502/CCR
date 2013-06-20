@@ -18,9 +18,8 @@ var _course_data = [
 ];
 
 var main_view = Ti.UI.createView({
-	backgroundColor:'#fff',
 	top:0,
-	//width:526,
+	width:526,
 	//left:292,
 	left:0,
 	zIndex:2

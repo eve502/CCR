@@ -22,6 +22,9 @@ var user_name = CurrentAccount[0].user_name;
 
 var content_view = Titanium.UI.createView({
 	height:340,
+	top:0,
+	width:526,
+	left:0,
 })
 
 var content_view_tb = Titanium.UI.createTableView({
@@ -44,7 +47,7 @@ var send_btn = Titanium.UI.createButton({
 	width:120,
 	height:38,
 })
-Win.rightNavButton = send_btn;
+Win._parent.rightNavButton = send_btn;
 
 
 send_btn.addEventListener('click', function(e){
@@ -67,7 +70,7 @@ content_view.add(user_name_lb);
 var text_padding = [6, 6];
 var border_view = Titanium.UI.createView({
 	backgroundColor:'#fff',
-	width:400,
+	width:478,
 	height:200,
 	top:user_name_lb.height + 22,
 	borderRadius:8,

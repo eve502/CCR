@@ -6,6 +6,8 @@
 //  Copyright 2011 admin. All rights reserved.
 // 
 
+var win = Titanium.UI.currentWindow;
+
 
 Titanium.include('/Views/common/helper.js');
 Titanium.include('/Views/lib/cachedImageView.js');
@@ -30,7 +32,13 @@ var CurrentAccount = {_id:1,avatar:'/images/avatar/user.png',user_name:'王小�
 var access_data = {};
 var Users = {};
 
-var win = Titanium.UI.currentWindow;
+var main_view = Ti.UI.createView({
+	top:0,
+	width:526,
+	left:0,
+});
+
+win.add(main_view);
 
 
 var account_tb = Ti.UI.createTableView({
@@ -43,7 +51,7 @@ var account_tb = Ti.UI.createTableView({
 	top:0,
 })
 
-win.add(account_tb);
+main_view.add(account_tb);
 
 account_tb.addEventListener('click', function(e){
 	//APP.weibo.exec.activeAccount( Users[ e.index ] )
@@ -53,7 +61,7 @@ var account_edit_btn = Titanium.UI.createButton({
 	title:'编辑',
 })
 
-win.rightNavButton = account_edit_btn;
+win._parent.rightNavButton = account_edit_btn;
 
 // 编辑账号 按钮
 account_edit_btn.addEventListener('click', function(e){

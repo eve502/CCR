@@ -1,86 +1,145 @@
-// 
-//  main.js | message
-//  LA
-//  
-//  Created by h2o on 2011-09-29.
-//  Copyright 2011 h2o. All rights reserved.
-//
-
-var setting_sp = {};
 
 
-// 左侧 主目录
-setting_sp.masterWindow = Ti.UI.createWindow({
-    title:L('setting'),
-    backgroundColor: 'transparent',
-    url:'/Views/setting/_master.js',
-});
+if( typeof(Analytics) != 'object' ){
+	var Analytics = require('/Views/common/analytics')
+}
+var A = new Analytics('app:setting');
 
-// 右侧 内容区
-setting_sp.detailWindow = Ti.UI.createWindow({
-    //backgroundColor: '#DFE2E7',
-    //url:'/setting/_detail.js',
-});
+// A.featureEvent(e)  or  A.featureEvent(e, {somekey: somevalue, })
 
 
-setting_sp.masterNav = Ti.UI.iPhone.createNavigationGroup({
-	window:setting_sp.masterWindow
-});
-
-setting_sp.detailNav = Ti.UI.iPhone.createNavigationGroup({
-	window:setting_sp.detailWindow
-});
-
-setting_sp.splitView_win = Titanium.UI.iPad.createSplitWindow({
-	masterView:setting_sp.masterNav,
-	detailView:setting_sp.detailNav,
-	showMasterInPortrait:true,	// popup or portrait
-});
-
-
-
-
-
-Ti.App.addEventListener.addEventListener('app:rowClicked', function(e) {
-    setting_sp.splitView_win.setMasterPopupVisible(false);
-	setting_sp.splitView_win.setMasterPopupVisible(true);
-});
-
-setting_sp.splitView_win.addEventListener('visible', function(e) {
-	//if detail view then show button to display master list
-	// the framework does this automagically!!
-	//pr(e)
-	if (e.view == 'detail') {
-		e.button.title = "List";
-		setting_sp.detailWindow.leftNavButton = e.button;
-	}else if (e.view == 'master') {	// popover
-		setting_sp.detailWindow.leftNavButton = null;
-	}
-});
-
-//setting_sp.splitView_win.open();
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-// tab4
-var tab_setting_win = Ti.UI.createWindow({
+//右侧窗口区域
+var win = Ti.UI.createWindow({
 	title:L('setting'),
-	//backgroundColor:'#369',
-	navBarHidden:true,
+	backgroundColor:'#C0C6D1',
+});
+
+/*
+ * 定义<课程列表>tab
+ */
+tab_setting = Ti.UI.createTab({
+	title:L('course'),
+	icon:'/images/icon/ico_cloud.png',
+	window:win
+});
+
+
+////////////////////////////
+
+var setting_data = [
+	{title:L('account'), hasChild:true, url:'/Views/setting/_account.js', leftImage:'/images/ico_setting_account.png'},
+	{title:L('feedback'), hasChild:true, url:'/Views/setting/_feedback.js', leftImage:'/images/ico_setting_feedback.png', header:''},
+	//{title:L('help'), hasChild:true, url:'/Views/setting/_help.js', leftImage:'/images/ico_setting_help.png'},
+]
+
+
+var setting_navgroup = Ti.UI.createTabGroup({
+	allowUserCustomization:true,
+	left:252-10,	// 192
+	zIndex:3
+});
+setting_navgroup.addEventListener('click', function(e){
+	pr(e);
+});
+
+
+// 导航菜单项 视图
+var main_menu_view = Titanium.UI.createView({
+	left:0,
+	top:0,
+	width:342+1,
+	backgroundColor:'#EDEDED',
+	//backgroundImage:'/images/bg_aside_menubar.png',
+});
+
+
+//tabGroup
+var subject_len = setting_data.length;
+for(i=0;i<subject_len;i++)
+{
+	var tab_win = Ti.UI.createWindow({
+		tabBarHidden:true,
+		navBarHidden:true,
+		_parent:win,
+		url:setting_data[i].url,
+	});
+	var subject_tab = Ti.UI.createTab({
+		title:setting_data[i].title,
+		window:tab_win,
+		visible:false,
+	});
+	setting_navgroup.addTab(subject_tab);
+}
+
+setting_navgroup.open();
+
+win.add(setting_navgroup);
+
+
+var rowData = [];
+
+//table footer
+var footer = Ti.UI.createView({
+	backgroundColor:'transparent',
+	height:20
+});
+var section = Ti.UI.createTableViewSection();
+section.footerView = footer;
+
+rowData[0] = section;
+
+for(i=0;i<subject_len;i++)
+{
+	section.add(
+		Ti.UI.createTableViewRow({
+			hasChild:setting_data[i].hasChild,
+			title:setting_data[i].title,
+			leftImage:setting_data[i].leftImage
+		})
+	);
+}
+
+
+var main_menu_tbview = Titanium.UI.createTableView({
+	data:rowData,
+	allowsSelection:true,		
+	separatorStyle:Titanium.UI.iPhone.TableViewSeparatorStyle.SINGLE_LINE,
+	separatorColor:'#EDEDED',
+	//headerView:header_view,
+	//footerView:footer_view,
+	minRowHeight:54,
+	left:0,
+	top:0,
+	width:342,
+	//backgroundColor:'transparent',
+	backgroundColor:'#C0C6D1',
+});
+
+main_menu_view.add(main_menu_tbview);
+win.add(main_menu_view);
+
+/*
+ * 构建左侧功能导航菜单
+ */
+
+	
+	
+var main_menu_active_item = 0;			// 默认显示  (对应 menu_list )
+
+main_menu_tbview.addEventListener('click', function(e){	
+	main_menu_active_item = e.index;
+	setting_navgroup.width = 768;	// 宽度复位
+	setting_navgroup.setActiveTab(main_menu_active_item);
+	main_menu_tbview.selectRow( main_menu_active_item );
+	setting_navgroup.tabs[main_menu_active_item].window.fireEvent('reset');
 })
 
-tab_setting_win.add(setting_sp.splitView_win);
-
-var tab_setting = Ti.UI.createTab({
-	title:L('setting'),
-	icon:'/images/icon/ico_more.png',
-	window:tab_setting_win,
-})
+setting_navgroup.setActiveTab(0);
 
 
-setting_sp.masterWindow.sp_win = setting_sp;
+main_menu_tbview.fireEvent('click', {index:main_menu_active_item, rowData:setting_data[main_menu_active_item] } );
+
+
 
 
 
